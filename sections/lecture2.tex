@@ -2,12 +2,15 @@
 \documentclass[../document.tex]{subfiles}
 \lstset{inputpath=sections}
 \begin{document}
+
 	\subsection{Simple linear regression}
+
 	\paragraph{General}
 	The output variable Y is a linear function of the input variable(s) X, where the coefficients are unknown.
 	\begin{equation}
 		Y \approx \beta_{0} + \beta_{1}X
 	\end{equation}
+
 	\paragraph{Estimating the coefficients}
 	We need to learn the coefficients from the n training data
 	\begin{equation}
@@ -42,6 +45,7 @@
 		&\hat{\beta}_{0}=\overline{y}-\hat{\beta}_{1}\overline{x}
 	\end{split}
 	\end{equation}
+
 	\paragraph{Accuracy of the coefficient estimates}
 	We assume this true relationship, where the function f is unknown and the error is random with zero mean.
 	\begin{equation}
@@ -127,7 +131,9 @@
 	\begin{equation}
 		Cor(X,Y)=\frac{\sum_{i=1}^{n}(x_{i}-\overline{x})(y_{i}-\overline{y})}{\sqrt{\sum_{i=1}^{n}(x_{i}-\overline{x})^2}\sqrt{\sum_{i=1}^{n}(y_{i}-\overline{y})^2}}
 	\end{equation}
+
 	\subsection{Multiple linear regression}
+
 	\paragraph{Estimating the coefficients}
 	Instead of doing each media (in the example) separately, a joint approach is more promising, since the correlations between the media can be captured.
 	\begin{equation}
@@ -140,6 +146,7 @@
 			&= \sum_{i=1}^{n}(y_{i}-\hat{\beta}_{0}-\hat{\beta}_{1}x_{i1}-\hat{\beta}_{2}x_{i2}-...-\hat{\beta}_{n}x_{in})^2
 	\end{split}
 	\end{equation}
+
 	\paragraph{Is there a relationship between response and predictors}
 	To define if the predictors have an influence on the response we have a hypothesis.
 	\begin{equation}
@@ -163,8 +170,10 @@
 		F = \frac{\frac{RSS_{0}-RSS}{q}}{\frac{RSS}{n-p-1}}
 	\end{equation}
 	Assume we only leave out one predictor variable, then the appropriate F-statistic (and the associated p-value) would tell us the partial effect of adding that left out variable to the model. It turns out, the F-statistic, if only one variable is left out, is identical to the squared t-statistic.
+
 	\paragraph{Deciding on important variables}
 	Once the overall F-statistic p-value has been calculated and it is smaller than 1\% (5\%), then at least one predictor is significantly associated with response. So to find out, which predictors are actually associated, we could do an exhaustive search, but this is really slow. Other approaches are called forward selection, backward selection and mixed selection, where all approaches are greedy ones.
+
 	\paragraph{Model fit}
 	As in the simple linear regression the two most common measures are the RSE (residual standard error) and \(R^2\)
 	\begin{equation}
@@ -179,6 +188,7 @@
 		R^2=Cor(Y,\hat{Y})^2
 	\end{equation}
 	A value close to 1 indicates that the model explains a large portion of the variance in the response variable.
+
 	\paragraph{Prediction}
 	Once the multiple linear regression model has been trained, it is simple to use it for prediction. There are three types of uncertainties associated with this prediction.
 	\begin{description}
@@ -186,7 +196,9 @@
 		\item Of course, in practice assuming a linear model is almost always an approximation of reality, so there is an additional source of potentially reducible error which we call model bias. However, here we will ignore this discrepancy, and operate as if the linear model were correct.
 		\item Even if we knew the true values for the coefficients, the response value cannot be predicted perfectly because of the random error, which we referred as the irreducible error. We use prediction intervals to answer how much will \(Y\) vary from \(\hat{Y}\). These intervals are always wider than confidence intervals, because they incorporate both the error in the estimate (reducible error) and the uncertainty as to how much an individual point will differ from the population regression plane (irreducible error)
 	\end{description}
+
 	\subsection{Other consideration in the regression model}
+
 	\paragraph{Qualitative predictors}
 	So far all predictors had numerical values, so called quantitative predictors. In many cases, some predictor variables are of qualitative nature. Qualitative predictors are predictors with only two levels and we need an indicator or dummy variable, which can take on two different numerical values, usually 0 or 1.
 	\begin{equation}
@@ -234,6 +246,7 @@
 	\end{split}
 	\end{equation}
 	The level without dedicated dummy variable is called the baseline. Clearly the coefficients and the associated p-values do depend on the selected coding of the dummy variable. Hence instead of relying on the individual coefficients and their p-values, we better focus on the F-test which does not depend on the particular coding.
+
 	\paragraph{Removing additivity assumption}
 	The linear model assumes that the relationship between the predictors and the response are additive and linear. Hence we remove the additivity assumption. \\
 	Consider the standard linear regression model with two predictors.
@@ -260,12 +273,14 @@
 		\end{cases}
 	\end{split}
 	\end{equation}
+
 	\paragraph{Non-linear relationships}
 	The simplest extension of the linear models to non-linear problems is called polynomial regression. The simplest approach to allow for a non-linear relationship is to add transformed versions of the predictors to the model.
 	\begin{equation}
 		Y = \beta_{0}+\beta_{1}x+\beta_{2}x^2+\epsilon
 	\end{equation}
 	But we have to be careful to not overtrain the model with higher orders.
+
 	\paragraph{Potential problems}
 	While linear models are powerful there are a list of potential problems, one needs to be aware of
 	\subparagraph{Non-linearity of data}
@@ -307,6 +322,7 @@
 		\item Drop one of the problematic variables
 		\item Combining collinear predictor variables into a new variable
 	\end{itemize}
+
 	\subsection{Comparison of linear regression with KNN}
 	Linear regression is a parametric approach. If the linearity assumption holds, this will result in good results which are easy to interpret. If the assumption does not hold, this will result in a low performing scheme.\\
 	The KNN regression is a non-parametric approach and hence there are no assumptions that can be violated. But the results are often hard to interpret and it usually takes much more training data to achieve similar performance. The KNN regression is very similar to KNN classification but the main difference is, that there is no voting among the K nearest neighbors in the set \(N_{0}\) for the winning class, but an average is performed for the prediction value.

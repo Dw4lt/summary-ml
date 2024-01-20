@@ -2,7 +2,9 @@
 \documentclass[../document.tex]{subfiles}
 \lstset{inputpath=sections}
 \begin{document}
+
 	\subsection{Linear regression}
+
 	\paragraph{Linear regression}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|ccc|}{|ccccccccccccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
@@ -23,6 +25,7 @@
 		\end{TAB}
 	\end{center}
 	\sectionbreak
+
 	\paragraph{Multiple linear regression}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|ccc|}{|ccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
@@ -32,6 +35,7 @@
 			F-statistic & $F = \frac{\frac{TSS-RSS}{p}}{\frac{RSS}{n-p-1}}$ & F\(>\)1 good model\\
 		\end{TAB}
 	\end{center}
+
 	\paragraph{Other considerations}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|ccc|}{|cccccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
@@ -52,7 +56,9 @@
 		\end{TAB}
 	\end{center}
 	\sectionbreak
+
 	\subsection{Classification}
+
 	\paragraph{Bayes}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|c|}{|cc|}% (rows,min,max)[tabcolsep]{columns}{rows}
@@ -60,6 +66,7 @@
 			$P(X)=\frac{P(Y)P(X|Y)}{P(Y|X)}$
 		\end{TAB}
 	\end{center}
+
 	\paragraph{Logistic regression}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|ccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
@@ -68,6 +75,7 @@
 			Multiple LR & $p(X)=\frac{e^{\beta_{0}+\beta_{1}X_{1}+...+\beta_{p}X_{p}}}{1+e^{\beta_{0}+\beta_{1}X_{1}+...+\beta_{p}X_{p}}}$ \\
 		\end{TAB}
 	\end{center}
+
 	\paragraph{Linear discriminant analysis}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|ccccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
@@ -78,6 +86,7 @@
 			multiple predictors & $\delta_{k}(x)=x^T\Sigma^{-1}\mu_{k}-\frac{1}{2}\mu_{k}^T\Sigma^{-1}\mu_{k}+log\pi_{k}$\\
 		\end{TAB}
 	\end{center}
+
 	\paragraph{Quadratic discriminant analysis}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|c|}% (rows,min,max)[tabcolsep]{columns}{rows}
@@ -85,7 +94,9 @@
 		\end{TAB}
 	\end{center}
 	\sectionbreak
+
 	\subsection{Resampling Methods}
+
 	\paragraph{Cross validation}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|cc|}% (rows,min,max)[tabcolsep]{columns}{rows}
@@ -93,7 +104,9 @@
 			k-fold & $CV_{(k)}=\frac{1}{k}\sum_{i=1}^{k}MSE_{i}$\\
 		\end{TAB}
 	\end{center}
+
 	\subsection{Linear Model Selection and Regularization}
+
 	\paragraph{Shrinkage methods}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|ccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
@@ -102,6 +115,7 @@
 			Lasso & $	RSS+\lambda\sum_{j=1}^{p}|\beta_{j}| = \sum_{i=1}^{n}(y_{i}-\beta_{0}-\sum_{j=1}^{p}\beta_{j}x_{ij})^2+\lambda\sum_{j=1}^{p}|\beta_{j}|$\\
 		\end{TAB}
 	\end{center}
+
 	\paragraph{Dimension reduction methods}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|c|}% (rows,min,max)[tabcolsep]{columns}{rows}
@@ -109,19 +123,23 @@
 		\end{TAB}
 	\end{center}
 	\sectionbreak
+
 	\subsection{Moving Beyond Linearity}
+
 	\paragraph{Polynomial regression}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|c|}% (rows,min,max)[tabcolsep]{columns}{rows}
 			Form & $y_{i}=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x_{i}^2+\beta_{3}x_{i}^3+...+\beta_{d}x_{i}^d+\epsilon_{i}$ \\
 		\end{TAB}
 	\end{center}
+
 	\paragraph{Step functions}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|c|}% (rows,min,max)[tabcolsep]{columns}{rows}
 			Form & $y_{i}=\beta_{0}+\beta_{1}C_{1}(x_{i})+\beta_{2}C_{2}(x_{i})+...+\beta_{K}C_{K}(x_{i})+\epsilon_{i}$ \\
 		\end{TAB}
 	\end{center}
+
 	\paragraph{Regression splines}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|cc|}% (rows,min,max)[tabcolsep]{columns}{rows}
@@ -133,6 +151,7 @@
 			\end{cases}$ \\
 		\end{TAB}
 	\end{center}
+
 	\paragraph{Smoothing splines}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|cc|}% (rows,min,max)[tabcolsep]{columns}{rows}
@@ -140,6 +159,7 @@
 			Choosing $\lambda$ & $CV_{(n)}=\frac{1}{n}\sum_{i=1}^{n}(\frac{y_{i}-\hat{y}_{i}}{1-h_{i}})^2$ \\
 		\end{TAB}
 	\end{center}
+
 	\paragraph{GAM}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|c|}% (rows,min,max)[tabcolsep]{columns}{rows}
@@ -147,7 +167,9 @@
 		\end{TAB}
 	\end{center}
 	\sectionbreak
+
 	\subsection{Tree-based Methods}
+
 	\paragraph{The basics of decision trees}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|cccccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
@@ -159,6 +181,7 @@
 			Cross-entropy & $D = -E\left[log(\hat{p}_{mk})\right] = -\sum_{k=1}^{K}\hat{p}_{mk}log(\hat{p}_{mk})$\\
 		\end{TAB}
 	\end{center}
+
 	\paragraph{Bagging}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|c|}% (rows,min,max)[tabcolsep]{columns}{rows}
@@ -166,13 +189,16 @@
 		\end{TAB}
 	\end{center}
 	\sectionbreak
+
 	\subsection{Support Vector Machines}
+
 	\paragraph{Maximal margin classifier}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|c|}% (rows,min,max)[tabcolsep]{columns}{rows}
 			Form & $f(x^*)=\beta_{0}+\beta_{1}x_{1}^*+\beta_{2}x_{2}^*+...+\beta_{p}x_{p}^*$ \\
 		\end{TAB}
 	\end{center}
+
 	\paragraph{Support Vector classifier}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|cc|}% (rows,min,max)[tabcolsep]{columns}{rows}
@@ -180,6 +206,7 @@
 			Slackvariable & $\epsilon_{i}\ge 0, \sum_{i=1}^{n}\epsilon_{i}\ge C$\\
 		\end{TAB}
 	\end{center}
+
 	\paragraph{Support Vector machines}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|ccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
@@ -189,7 +216,9 @@
 		\end{TAB}
 	\end{center}
 	\sectionbreak
+
 	\subsection{Unsupervised Learning}
+
 	\paragraph{Principal Component Analysis}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|cc|}% (rows,min,max)[tabcolsep]{columns}{rows}
@@ -197,6 +226,7 @@
 			PVE & $\frac{\sum_{i=1}^{n}(\sum_{j=1}^{p}\phi_{jm}x_{ij})^2}{\sum_{j=1}^{p}\sum_{i=1}^{n}x_{ij}^2}$\\
 		\end{TAB}
 	\end{center}
+
 	\paragraph{K-means clustering}
 	\begin{center}
 		\begin{enumerate}
@@ -208,6 +238,7 @@
 			\end{itemize}
 		\end{enumerate}
 	\end{center}
+
 	\paragraph{Hierarchical clustering}
 	\begin{center}
 		\begin{enumerate}

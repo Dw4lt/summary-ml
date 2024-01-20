@@ -2,14 +2,17 @@
 \documentclass[../document.tex]{subfiles}
 \lstset{inputpath=sections}
 \begin{document}
+
 	\subsection{Cross-validation}
 	Cross-validation can be used to estimate the test error in order to evaluate the performance of a method and finding an optimal flexibility setting.
+
 	\paragraph{Training error rate vs. test error rate}
 	\begin{itemize}
 		\item The training error rate is the average error that results when the training data is evaluated with the trained model. This is usually smaller than the test error rate.
 		\item The test error rate is the average error that results when predicting the response to a NEW observation.
 	\end{itemize}
 	For quantitative responses, the performance can be measured using the respective MSE instead of the error rates.
+
 	\paragraph{validation set approach}
 	This is the most basic approach. The given observations are randomly split into a training set and a validation set (hold-out set). The model is then trained using the training set and tested with the validation set.\\
 	The validation set approach is conceptually simple and easy to implement, but there are two potential problems:
@@ -20,6 +23,7 @@
 	\begin{center}
 		\includegraphics[width=.6\textwidth]{pictures/cross_validation_validation_set.png}
 	\end{center}
+
 	\paragraph{Leave-one-out cross-validation (LOOCV)}
 	(image)
 	Again, LOOCV splits the observations into two parts, but they are now not of comparable size, since only ONE observation is used for the validation set. Now the model can be fitted to almost all data (n-1) and then the prediction is made for the one single sample that was left out.Hence the MSE of this single sample is an approximately unbiased estimate of the test MSE, but it has a high variance. This variance can be reduced by repeating the procedure by systematically leaving out one sample after the other and then averaging the resulting single sample MSEs.
@@ -39,6 +43,7 @@
 	\begin{center}
 		\includegraphics[width=.6\textwidth]{pictures/cross_validation_LOOCV.png}
 	\end{center}
+
 	\paragraph{k-fold cross-validation}
 	(image)
 	k-fold cross validation improves the LOOCV, so that it isn't so computationally expensive. The basic idea is to split the observations randomly in k equally sized sets. Clearly LOOCV is a special case of k-fold cross-validation, where k=n.
@@ -48,6 +53,7 @@
 	\begin{center}
 		\includegraphics[width=.6\textwidth]{pictures/cross_validation_k_fold.png}
 	\end{center}
+
 	\paragraph{Bias-variance trade-off for k-fold cross-validation}
 	\begin{itemize}
 		\item The validation set method has the largest bias and the largest variance for estimating the true test MSE.
@@ -55,6 +61,7 @@
 		\item The LOOCV has a low bias and a medium variance.
 
 	\end{itemize}
+
 	\subsection{The bootstrap}
 	\begin{center}
 		\includegraphics[width=0.8\textwidth]{pictures/bootstrap.png}

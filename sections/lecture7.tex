@@ -2,8 +2,10 @@
 \documentclass[../document.tex]{subfiles}
 \lstset{inputpath=sections}
 \begin{document}
+
 	\subsection{The basics of decision trees}
 	Basically, tree-based methods segment the predictor space into a large number of simple regions. The prediction for a test sample is based on findig the appropriate region to which the test sample belongs.
+
 	\paragraph{Regression trees}
 
 	\paragraph{Prediction via stratification of the feature space}
@@ -22,6 +24,7 @@
 	\begin{center}
 		\includegraphics[width=.6\textwidth]{pictures/tree.png}
 	\end{center}
+
 	\paragraph{Tree pruning}
 	The presented procedure, without modification, would result in low training MSE but probably high test MSE, since the tree is allowed to be quite complex. Better, we grow a very large tree and then prune it down to a small one.\
 	We would like to select the subtree, which results in the lowest test MSE. \textbf{Cost-complexity pruning} is an elegant way to find these candidates.\
@@ -30,6 +33,7 @@
 		\sum_{m=1}^{|T|}\sum_{x_{i}} \in R_{m}(y_{i}-\hat{y}_{R_{m}})^2 + \alpha|T|
 	\end{equation}
 	Here the hyper-parameter \(\alpha\) penalizes the complexity of the tree, at the expense of RSS. The value of this parameter can be arrived at through cross validation.
+
 	\paragraph{Classification trees}
 	Classification trees predict qualitative responses instead of quantitative ones. A classification tree can also be grown using recursive binary splitting. A extension is, to split in such a way that we maximize the reduction in classification error rate.
 	\begin{equation}
@@ -45,9 +49,12 @@
 		D = -\sum_{k=1}^{K}\hat{p}_{mk}log\hat{p}_{mk}
 	\end{equation}
 	If all classes are about equally likely the uncertainty is high and if one class dominates, the uncertainty is low.
+
 	\paragraph{Trees vs. linear models}
 	If the relationship is well approximated by linear model, then linear regression works well. If the relationship is highly non-linear and complex then decision trees might outperform classical approaches. Trees are very easy to explain to people and some people believe that decision trees more closely mirror human decision-making than the regression and classification approaches in the previous chapters. Trees can be displayed graphically and can easily handle qualitative predictors without the need to create dummy variables. But trees generally do not have the same level of predictive accuracy as some ot the other approaches.
+
 	\subsection{Bagging, random forests}
+
 	\paragraph{Bagging}
 	Decision trees suffer from high variance. Bootstrap aggregation (bagging) is a general method for reducing the variance of a statistical learning method. Recall that averaging a set of n independent observations with equal variance will result in a sample mean that has a variance that is n times smaller than the variance of each sample.
 	Since we have not multiple training sets, we can bootstrap.
@@ -58,6 +65,7 @@
 		\hat{f}_{bag}(x)=\frac{1}{B}\sum_{b=1}^{B}\hat{f}^{*b}(x)
 	\end{equation}
 	Bagging can improve prediction for many regression methods and its particularly useful for decision trees. But bagging can also be used for classification problems. The decision of the single trees cannot be averaged, but one can use the most commonly occurring class among all trees as the final class prediction.
+
 	\paragraph{Random forests}
 	Random forests use an elegant trick that de-correlates the trees, which improves on the performance of bagging. As in bagging, the decision trees are built using bootstrapped training samples, but for every split a random sample of m predictors is chosen as split candidates. Hence for each split, only a random majority of possible predictors are evaluated.\
 	\begin{equation}

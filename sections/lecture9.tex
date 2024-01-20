@@ -2,10 +2,13 @@
 \documentclass[../document.tex]{subfiles}
 \lstset{inputpath=sections}
 \begin{document}
+
 	\subsection{Principal Component Analysis}
 	So far we have focused on supervised learning and go on now to unsupervised learning, where we don't know the response variables. So the goal cannot be prediction rather to have insight into the structure of the data matrix X. We focus on the two most popular approaches.
+
 	\paragraph{PCA}
 	We have seen the use of PCA in chapter 6 in the context of principal components regression, where it was used to find subspaces which are, for the given reduced dimension, the closest to the original data. Since PCA only uses the predictor variables and not the response variable Y, it si considered an unsupervised technique, which can be used for data exploration.
+
 	\paragraph{What are principal components?}
 	PCA finds a low-dimensional representation of a data set that contains a much as possible of the original variation. The higher the variation, the more interesting that dimension is.\\
 	The first principal component of a set of features \(X_{1},X_{2},...,X_{p}\) is the normalized linear combination of the features, resulting in the largest variance.
@@ -24,10 +27,13 @@
 	\end{split}
 	\end{equation}
 	The resulting \(z_{i1},...,z_{n1}\) are called the \textbf{scores} of the first principal component. Geometrically speaking, the loading vector \(\phi_{1}\) defines a direction in the feature space along which the data vary the most. After the first principal component \(Z_{1}\) as been determined, the second principal component \(Z_{2}\) can be calculated. Again, it is a linear combination of \(X_{1},...,X_{p}\) that has maximal variance and a loading vector of length one. This requires \(Z_{2}\) to be uncorrelated with \(Z_{1}\) and that implies that \(\phi_{2}\) needs to be orthogonal to \(\phi_{1}\).
+
 	\paragraph{Scaling the variables}
 	Usually the data matrix is column centered and this will bring the centroid to the origin but has not other effect on the result. PCA will give different result though, if the predictor variables are scaled by an arbitrary constant. This is undesirable, since this will make the result dependent for example on the units of measurements for the data matrix X. If all the variables are measured with the same unit, then it is OK to not normalize the variables to have a sample variance of unity - in fact this is then often preferred.
+
 	\paragraph{Unique - up to a sign}
 	Since each principal component loading vector identifies an optimal direction in p-dimensional space, it is unique, up to its sign. Similarly, the score vectors Z are unique up to a sign flip, since the variance of Z is the same as the variance of (-Z).
+
 	\paragraph{The proportion of variance}
 	But the question is now how much information (variance) is lost by projecting the p-dimensional data set onto the first few principal components?
 	\begin{equation}
@@ -42,12 +48,16 @@
 		\frac{\sum_{i=1}^{n}(\sum_{j=1}^{p}\phi_{jm}x_{ij})^2}{\sum_{j=1}^{p}\sum_{i=1}^{n}x_{ij}^2}
 	\end{equation}
 	This term is always between 0 and 1.
+
 	\paragraph{How many principal components should be used?}
 	In general a nxp data matrix X has min(n-1,p) distinct principal components. Usually the goal is to reduce the dimensionality significantly, by focusing on the first few principal components.\\
 	This is highly subjective but unfortunately the best we can do for unsupervised data exploration. In a supervised setting, a form of cross-validation would be the proper way of selecting the number of components.
+
 	\subsection{Clustering Methods}
+
 	\paragraph{Clustering}
 	Technique for finding subgroups or clusters in a data set. The goal is to partition the data set into distinct groups, such that the observation in each group are similar to each other and observations from different groups are quite different from each other. PCA and clustering seek to simplify the data via a small number of summaries. We will focus on the two most popular approaches. Note that one can cluster the n observations (on the basis of the features) or one can cluster the p-features (on the basis of the observations) but we will cluster observations, but simply transposing X will cluster features.
+
 	\paragraph{K-means clustering}
 	This is a simple and elegant method for partitioning a data set into K distinct clusters. The basic idea of K-means clustering is, that a good clustering is one for which the within-cluster variation is as small as possible.
 	\begin{equation}
@@ -57,6 +67,7 @@
 	\end{split}
 	\end{equation}
 	There are many ways of defining within-cluster variation, but the most popular is the one above. Unfortunately, solving this problem optimally is extremely time consuming for reasonable n and K.
+
 	\paragraph{K-means clustering algorithm}
 	\begin{enumerate}
 		\item Randomly assign a number, from 1 to K, to each of the observations. These serve as initial cluster assignment for the observations.
@@ -67,6 +78,7 @@
 		\end{itemize}
 	\end{enumerate}
 	Since the final solution depends on the random initialization, it is important to run K-means several times with different random initializations. After each convergence, the quality of the solution is known, since the goal is to minimize the resulting total within-cluster variation.
+
 	\paragraph{Hierarchical clustering}
 	K-means requires the specification of the number of clusters K. Hierarchical clustering does not require such a choice and presents a family of possible clustering solutions and associated number of clusters K in a tree structure, a so called dendrogram.
 	\begin{figure}
@@ -77,6 +89,7 @@
 	\end{figure}
 
 	The focus will be on bottom-up or agglomerative clustering. For any two observations, we can look for the point in the tree where branches containing those two observations are first fused. The height of this fusion indicates how different the two observations are. By cutting horizontally across, the dendrogram results in a number of cluster. The higher this cut, the fewer cluster remain, the lower the cut the more cluster result. The underlying assumption is, that the data can be meaningfully clustered in a hierarchical way, if this is not true, this is not the right tool.
+
 	\paragraph{Hierarchical clustering algorithm}
 	\begin{enumerate}
 		\item Begin with n observations and a measure (Euclidean distance) of all the
@@ -100,6 +113,7 @@
 		\item [Centroid] Dissimilarity between the centroid for cluster A and the centroid for cluster B. Centroid linkage can result in undesirable inversions.
 	\end{itemize}
 	Average, complete and single are the most popular. Centroid linkage is often used in genomics.
+
 	\paragraph{Practical issues}
 	Small decisions with big consequences, validating the obtained clusters and other considerations are issues. Other considerations are for example that outliers have an effect on the result and will highly distort clusters.
 

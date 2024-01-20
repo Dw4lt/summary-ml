@@ -2,7 +2,9 @@
 \documentclass[../document.tex]{subfiles}
 \lstset{inputpath=sections}
 \begin{document}
+
 	\subsection{Logistic regression}
+
 	\paragraph{logistic model}
 	A linear model can't guarantee that the predicted response will be between 0 and 1. Hence the idea is to use the logistics function, which goes in an S-shape smoothly from 0 to 1 and model its argument using a linear model.
 	\begin{equation}
@@ -17,6 +19,7 @@
 	\end{split}
 	\end{equation}
 	Since the relationship between the odds and the linear model is now more complicated, there is no simple connection between the slope and the intercept and the corresponding log-odds.
+
 	\paragraph{Estimating the regression coefficients}
 	The basic approach for finding the unknown coefficients given the training data is called the maximum likelihood approach. The goal is to pick the coefficients in such a way, that the probability of the model having created the observed data is maximized.
 	\begin{equation}
@@ -32,8 +35,10 @@
 		H_{0}:\beta_{1}=0
 	\end{split}
 	\end{equation}
+
 	\paragraph{Making predictions}
 	Once the coefficients have been estimated, it is straightforward to calculate the probability of default for a given balance. When we would have qualitative predictors, we can use the dummy variable approach.
+
 	\paragraph{Multiple logistic regression}
 	It would be interesting, to estimate the probability of default using more than one predictor. The generalization is straightforward using the relationship between the linear model and the log odds.
 	\begin{equation}
@@ -44,11 +49,15 @@
 	\end{split}
 	\end{equation}
 	Again, the coefficients are estimated using the maximum likelihood approach.
+
 	\paragraph{Logistic regression for more than two response classes}
 	If we had three categories, we would need to estimate the probabilities of each of them, given the observed predictors. While there is a multi-class extension for two-class logistic regression, it is not used very often in practice.
+
 	\subsection{Linear discriminant analysis}
+
 	\paragraph{Introduction}
 	In linear discriminant analysis we estimate the probability density functions of the observations, given a particular class. Then we apply Bayes theorem to flip these probabilities around and get the one on the right, which allow us to make an optimal decision.
+
 	\paragraph{Using Bayes' theorem for classification}
 	We want to classify observations into K classes and we need to know what the probability of each class is, without having any observations.
 	We also need to know what the PDFs for each the observations are, given a particular class k
@@ -69,6 +78,7 @@
 	This suggest that instead of modeling \(p_{k}(X)\) directly, one could model/estimate \(f_{k}(X)\) and \(\pi_{k}\) and then use the theorem to find the needed \(p_{k}(X)\)\\
 	Estimating the prior probabilities is simple. We simple use the fraction of samples in the training set that belong to class k as the estimate of the prior probabilities.\\
 	Estimating \(f_{k}(X)\) is more challenging, except we assume some parametric form, as we will do in this chapter.
+
 	\paragraph{LDA using one predictor p=1}
 	We will assume the model of the function to be a Gaussian.
 	\begin{equation}
@@ -102,6 +112,7 @@
 	\begin{equation}
 		\hat{\delta}_{k}(x)=x*\frac{\hat{\mu}_{k}}{\hat{\sigma}^2}-\frac{\hat{\mu}_{k}^2}{2\hat{\sigma}^2}+log(\hat{\pi}_{k})
 	\end{equation}
+
 	\paragraph{LDA using multiple predictors p\(>\)1}
 	Extending LDA to multiple predictors results in the need for a model of a multidimensional PDF. We will select a multidimensional Gaussian PDF where the means of the classes are different but all classes have the same covariance matrix.
 	\begin{equation}
@@ -119,6 +130,7 @@
 	\end{equation}
 	The Bayes classifier now calculated the discriminant function for each class using the given test data x and assigns the test data to the class with the highest discriminant function.\\
 	LDA is optimized for minimum overall error, which is composed in a low sensitivity and a high specificity and you have to decide about a good threshold for yourself.
+
 	\subsection{Quadratic discriminant analysis}
 	In LDA it is assumed that the observations within each class are drawn from a multivariate Gaussian distribution with a class specific mean and a common covariance matrix. The Quadratic discriminant analysis (QDA) allows for each class to have its own covariance matrix. The main effect is, that the discriminant functions per class for a given observation x change to include a quadratic term.
 	\begin{equation}
@@ -134,19 +146,23 @@
 		\item QDA has more parameters, K covariance matrices instead of one, so you need K times more data. This increases the variance but decreases the bias
 		\item With little training data use LDA, otherwise QDA
 	\end{itemize}
+
 	\subsection{A comparison of classification methods}
+
 	\paragraph{Logistic regression vs. LDA}
 	\begin{itemize}
 		\item They often have very similar performance
 		\item LDA tends to outperform logistic regression if the Gaussian assumption is approximately correct.
 		\item Logistic regression tends to outperform LDA if the Gaussian assumption is basically wrong.
 	\end{itemize}
+
 	\paragraph{KNN}
 	\begin{itemize}
 		\item This is a non-parametric scheme, hence no model is assumed but simply a vote among the N nearest neighbors is performed to classify a test sample x.
 		\item Hence one would expect KNN to outperform LDA and logistic regression if the decision boundaries need to be non-linear
 		\item But KNN does not tell us which predictors are important and need lots of training data
 	\end{itemize}
+
 	\paragraph{QDA}
 	\begin{itemize}
 		\item In some sense this is a compromise between simple linear boundaries of LDA/logistic regression and arbitrary boundaries of KNN
