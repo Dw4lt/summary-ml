@@ -24,12 +24,12 @@
 	\end{center}
 	\paragraph{Tree pruning}
 	The presented procedure, without modification, would result in low training MSE but probably high test MSE, since the tree is allowed to be quite complex. Better, we grow a very large tree and then prune it down to a small one.\
-	We would like to select the subtree, which results in the lowest test MSE. Cost-complexity pruning is an elegant way to find these candidates.\
+	We would like to select the subtree, which results in the lowest test MSE. \textbf{Cost-complexity pruning} is an elegant way to find these candidates.\
 	We use the number of terminal nodes |T| as a measure of the flexibility of a particular tree. As before (lasso), when we want to control the number of regions (coefficients), we add a penalty term to the RSS minimization problem.
 	\begin{equation}
 		\sum_{m=1}^{|T|}\sum_{x_{i}} \in R_{m}(y_{i}-\hat{y}_{R_{m}})^2 + \alpha|T|
 	\end{equation}
-	Now the tuning parameter \(\alpha\) control the trade-off between RSS reduction and complexity of the tree. As \(\alpha\) increases, the tree become simpler. We find the best tuning parameter with cross validation.
+	Here the hyper-parameter \(\alpha\) penalizes the complexity of the tree, at the expense of RSS. The value of this parameter can be arrived at through cross validation.
 	\paragraph{Classification trees}
 	Classification trees predict qualitative responses instead of quantitative ones. A classification tree can also be grown using recursive binary splitting. A extension is, to split in such a way that we maximize the reduction in classification error rate.
 	\begin{equation}
@@ -51,11 +51,17 @@
 	\paragraph{Bagging}
 	Decision trees suffer from high variance. Bootstrap aggregation (bagging) is a general method for reducing the variance of a statistical learning method. Recall that averaging a set of n independent observations with equal variance will result in a sample mean that has a variance that is n times smaller than the variance of each sample.
 	Since we have not multiple training sets, we can bootstrap.
+	\begin{equation*}
+		B: \text{Nr. of regression trees voting on classification}
+	\end{equation*}
 	\begin{equation}
 		\hat{f}_{bag}(x)=\frac{1}{B}\sum_{b=1}^{B}\hat{f}^{*b}(x)
 	\end{equation}
 	Bagging can improve prediction for many regression methods and its particularly useful for decision trees. But bagging can also be used for classification problems. The decision of the single trees cannot be averaged, but one can use the most commonly occurring class among all trees as the final class prediction.
 	\paragraph{Random forests}
-	Random forests use an elegant trick that de-correlates the trees, which improves on the performance of bagging. As in bagging, the decision trees are built using bootstrapped training samples, but for every split a random sample of m predictors is chosen as split candidates. Typically m=sqrt(p). Hence for each split, only a random majority of possible predictors are evaluated.\
+	Random forests use an elegant trick that de-correlates the trees, which improves on the performance of bagging. As in bagging, the decision trees are built using bootstrapped training samples, but for every split a random sample of m predictors is chosen as split candidates. Hence for each split, only a random majority of possible predictors are evaluated.\
+	\begin{equation}
+		m=\sqrt{p} \qquad \text{(typically)}
+	\end{equation}
 	If there is a strong predictor in the data set, most trees would use this one as the top split. Hence the bootstrapped trees all look quite similar, which means their predictions are correlated, which means averaging them will not improve matters much. But with breaking this structure by only allowing m randomly selected predictors, the averaging can be much better.
 \end{document}

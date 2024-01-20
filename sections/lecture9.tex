@@ -16,18 +16,18 @@
 		\sum_{j=1}^{p}\phi_{j1}^2&=1
 	\end{split}
 	\end{equation}
-	\(\phi_{11}, \phi_{21},...,\phi_{p1}\) are called the loadings of the first principal component. Together these make up the principal component loading vector. Recall chapter 6, the \(I_{2}\) norm squared of the loading vector must be one. The goal is now to find the linear combination of the sample feature values, such that the largest sample variance results.
+	\(\phi_{11}, \phi_{21},...,\phi_{p1}\) are called the \textbf{loadings} of the first principal component. Together these make up the principal component loading vector. Recall chapter 6, the \(I_{2}\) norm squared of the loading vector must be one. The goal is now to find the linear combination of the sample feature values, such that the largest sample variance results.
 	\begin{equation}
 	\begin{split}
 		\text{maximize }(\frac{1}{n}\sum_{i=1}^{n}(\sum_{j=1}^{p}\phi_{j1}x_{ij})^2)\text{ subject to }\sum_{j=1}^{p}\phi_{j1}^2=1\\
 		z_{i1}=\phi_{11}x_{i1}+\phi_{21}x_{i2}+...+\phi_{p1}x_{ip}
 	\end{split}
 	\end{equation}
-	The resulting \(z_{i1},...,z_{n1}\) are called the scores of the first principal component. Geometrically speaking, the loading vector \(\phi_{1}\) defines a direction in the feature space along which the data vary the most. After the first principal component \(Z_{1}\) as been determined, the second principal component \(Z_{2}\) can be calculated. Again, it is a linear combination of \(X_{1},...,X_{p}\) that has maximal variance and a loading vector of length one. This requires \(Z_{2}\) to be uncorrelated with \(Z_{1}\) and that implies that \(\phi_{2}\) needs to be orthogonal to \(\phi_{1}\).
+	The resulting \(z_{i1},...,z_{n1}\) are called the \textbf{scores} of the first principal component. Geometrically speaking, the loading vector \(\phi_{1}\) defines a direction in the feature space along which the data vary the most. After the first principal component \(Z_{1}\) as been determined, the second principal component \(Z_{2}\) can be calculated. Again, it is a linear combination of \(X_{1},...,X_{p}\) that has maximal variance and a loading vector of length one. This requires \(Z_{2}\) to be uncorrelated with \(Z_{1}\) and that implies that \(\phi_{2}\) needs to be orthogonal to \(\phi_{1}\).
 	\paragraph{Scaling the variables}
 	Usually the data matrix is column centered and this will bring the centroid to the origin but has not other effect on the result. PCA will give different result though, if the predictor variables are scaled by an arbitrary constant. This is undesirable, since this will make the result dependent for example on the units of measurements for the data matrix X. If all the variables are measured with the same unit, then it is OK to not normalize the variables to have a sample variance of unity - in fact this is then often preferred.
 	\paragraph{Unique - up to a sign}
-	Since each principal component loading vector identifies an optimal direction in p-dimensional space, it is unique, up to its sign. Similarly, the score vectors Z are unique up to a sign flip, since the variance of Z is the same as the variance of (-Z)
+	Since each principal component loading vector identifies an optimal direction in p-dimensional space, it is unique, up to its sign. Similarly, the score vectors Z are unique up to a sign flip, since the variance of Z is the same as the variance of (-Z).
 	\paragraph{The proportion of variance}
 	But the question is now how much information (variance) is lost by projecting the p-dimensional data set onto the first few principal components?
 	\begin{equation}

@@ -28,7 +28,7 @@
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|ccc|}{|ccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
 			Form & $Y = \beta_{0}+\beta_{1}X_{1}++\beta_{2}X_{2}+...+\beta_{n}X_{n}+\epsilon$ & \\
 			RSS &
-			$RSS = \sum_{i=1}^{n}(y_{i}-\hat{y}_{i})^2= \sum_{i=1}^{n}(y_{i}-\hat{\beta}_{0}-\hat{\beta}_{1}x_{i1}-\hat{\beta}_{2}x_{i2}-...-\hat{\beta}_{n}x_{in})^2$ & \\
+			$RSS = \sum_{i=1}^{n}(y_{i}-\hat{y}_{i})^2= \sum_{i=1}^{n}(y_{i}-\hat{\beta}_{0}-\hat{\beta}_{1}x_{i1}-...-\hat{\beta}_{n}x_{in})^2$ & \\
 			F-statistic & $F = \frac{\frac{TSS-RSS}{p}}{\frac{RSS}{n-p-1}}$ & F\(>\)1 good model\\
 		\end{TAB}
 	\end{center}
@@ -53,6 +53,13 @@
 	\end{center}
 	\sectionbreak
 	\subsection{Classification}
+	\paragraph{Bayes}
+	\begin{center}
+		\begin{TAB}(@,0.5cm,1cm)[8pt]{|c|}{|cc|}% (rows,min,max)[tabcolsep]{columns}{rows}
+			$P(X|Y)=\frac{P(X)P(Y|X)}{P(Y)}$ \\
+			$P(X)=\frac{P(Y)P(X|Y)}{P(Y|X)}$
+		\end{TAB}
+	\end{center}
 	\paragraph{Logistic regression}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|ccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
@@ -143,12 +150,13 @@
 	\subsection{Tree-based Methods}
 	\paragraph{The basics of decision trees}
 	\begin{center}
-		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|ccccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
+		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|cccccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
+			B & Number of trees voting on result \\
 			Regression trees & $RSS = \sum_{j=1}^{J}\sum_{i\in R_{j}}(y_{i}-\hat{y}_{R_{j}})^2$ \\
 			Tree pruning & $\sum_{m=1}^{|T|}\sum_{x_{i}} \in R_{m}(y_{i}-\hat{y}_{R_{m}})^2 + \alpha|T|$\\
 			Classification error index & $E = 1-max(\hat{p}_{mk})$\\
 			Gini index & $G = \sum_{k=1}^{K}\hat{p}_{mk}(1-\hat{p}_{mk})$ \\
-			Cross-entropy & $D = -\sum_{k=1}^{K}\hat{p}_{mk}log\hat{p}_{mk}$\\
+			Cross-entropy & $D = -E\left[log(\hat{p}_{mk})\right] = -\sum_{k=1}^{K}\hat{p}_{mk}log(\hat{p}_{mk})$\\
 		\end{TAB}
 	\end{center}
 	\paragraph{Bagging}
