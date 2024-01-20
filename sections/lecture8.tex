@@ -1,25 +1,25 @@
 % !TeX root = ../document.tex
 \documentclass[../document.tex]{subfiles}
 \lstset{inputpath=sections}
-\begin{document}	
+\begin{document}
 	\subsection{Maximal margin classifier}
 	\paragraph{What is a hyperplane?}
-	A hyperplane is a flat surface of dimension p-1 in a p dimensional space. 
+	A hyperplane is a flat surface of dimension p-1 in a p dimensional space.
 	\begin{equation}
 		\beta_{0}+\beta_{1}X_{1}+\beta_{2}X_{2}+...+\beta_{p}X_{p}=0
 	\end{equation}
 	This plane cuts the p-space in half.
 	\paragraph{Classification using a separating hyperplane}
-	When the training data fall into two classes we can use a hyperplane to separate the data. 
+	When the training data fall into two classes we can use a hyperplane to separate the data.
 	\begin{equation}
 		y_{i}(\beta_{0}+\beta_{1}x_{i1}+\beta_{2}x_{i2}+...+\beta_{p}x_{ip}) > 0
 	\end{equation}
-	Hence if a separating hyperplane exists a classifier follows naturally. 
+	Hence if a separating hyperplane exists a classifier follows naturally.
 	\begin{equation}
 		f(x^*)=\beta_{0}+\beta_{1}x_{1}^*+\beta_{2}x_{2}^*+...+\beta_{p}x_{p}^*
 	\end{equation}
 	With the test data \(x^*\) the data can be classified with the sign of the function. The magnitude is also interesting. If the magnitude is large (far from zero) then we can be confident about the class assignment. On the other hand, if \(f(x^*)\) is close to zero, then \(x^*\) is close to the separating hyperplane and we are less certain about the class assignment.\\
-	Such a classifier based on a separating hyperplane leads to a linear decision boundary. 
+	Such a classifier based on a separating hyperplane leads to a linear decision boundary.
 	\paragraph{The maximal margin classifier}
 	If the training data can be linearly separated, then there will be many separating hyperplanes. So which one should be chosen? The natural choice is the maximal margin hyperplane.\\
 	The maximal margin hyperplane is the separating hyperplane that has the largest margin to each class of all possible separating hyperplanes. The data points, which are critical have the minimal perpendicular distance (margin) to the separating plane. These training points are called support vectors. They are the only training data points needed to defined the maximal margin classifier.
@@ -55,7 +55,7 @@
 	\end{equation}
 	This will result in a linear decision boundary in the new feature space, which is a non-linear decision boundary in the original feature space. So why only use quadratic terms, higher order terms could be used to.
 	\paragraph{Support vector machine (SVM)}
-	The SVM is an extension of the support vector classifier that results from elnarging the feature space using kernels. Kernels are a computationally efficient approach for enlarging the feature space. So far the algorithm of how the optimization problem is solved has not been discussed. As it turns out, the solution does not need the observations directly but only inner products.
+	The SVM is an extension of the support vector classifier that results from enlarging the feature space using kernels. Kernels are a computationally efficient approach for enlarging the feature space. So far the algorithm of how the optimization problem is solved has not been discussed. As it turns out, the solution does not need the observations directly but only inner products.
 	\begin{equation}
 	\begin{split}
 		(x_{i},x_{i'})&=\sum_{j=1}^{p}x_{ij}x_{i'j}\\
@@ -78,9 +78,9 @@
 	\begin{equation}
 		f(x)=\beta_{0}+\sum_{i\in S}\alpha_{i}K(x,x_{i})
 	\end{equation}
-	An advantage in using the kernel trick instead of explicitly enlarging the feature space is computational, since for finding the \(\alpha\) one only needs to calculated the kernel function and does not need to operate in the enlarged feature space. 
+	An advantage in using the kernel trick instead of explicitly enlarging the feature space is computational, since for finding the \(\alpha\) one only needs to calculated the kernel function and does not need to operate in the enlarged feature space.
 	\subsection{SVMs with more than one class}
-	So far all scheme discussed in this chapter were binary classification schemes. We need an extension to the basic approach. Unfortunately, the concept of a separating hyperplane has no natural extension to the case of more than two classes. There are several extensions to the K-class problem and all of them break the K-class problem into a series of binary problems, for which an SVM is well suited. The most popular approaches are one-versus-one and one-versus-all. 
+	So far all scheme discussed in this chapter were binary classification schemes. We need an extension to the basic approach. Unfortunately, the concept of a separating hyperplane has no natural extension to the case of more than two classes. There are several extensions to the K-class problem and all of them break the K-class problem into a series of binary problems, for which an SVM is well suited. The most popular approaches are one-versus-one and one-versus-all.
 	\paragraph{One-versus-one}
 	The one-versus-one approach to the K-class classification problem constructs K choose 2 binary SVMs. Hence we build (K-1)K/2 SVMs. Each SVM compares a pair of classes and so each SVM is trained for that pair of classes. After all SVMs have been trained, each SVM runs to select one of the two possible classes. Of all results, the class that is picked most often is assigned to the test observation. This scheme has a problem, when more than one class has the same maximum number of calls. Every SVM can have another kernel.
 	\paragraph{One-versus-all}

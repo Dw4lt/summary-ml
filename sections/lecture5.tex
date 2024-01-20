@@ -1,21 +1,21 @@
 % !TeX root = ../document.tex
 \documentclass[../document.tex]{subfiles}
 \lstset{inputpath=sections}
-\begin{document}	
+\begin{document}
 	\subsection{Subset selection}
-	So far we have fitted the model to the training data using least squares. We introduce alternative fitting procedures which allows the linear model to perform well in different situation. The goal is to improve the prediction accuracy and the model interpretability. 
+	So far we have fitted the model to the training data using least squares. We introduce alternative fitting procedures which allows the linear model to perform well in different situation. The goal is to improve the prediction accuracy and the model interpretability.
 	\paragraph{Best subset selection}
 	This is a brute force approach with \(2^p\) models. The idea is to fit a separate least squares regression to p model having 1 predictor. After that fit a separate least squares regression to p(p-1)/2 models having 2 predictors and so on. We keep from all models with k predictors, the model with the lowest RSS. Among these p+1 models we select the best one using the cross-validated prediction error.
 	\paragraph{Forward stepwise selection}
 	If p becomes large, the best subset selection is infeasible, since the search space becomes very large. The main difference in this scheme is, that once a predictor makes it into the best model, it will stay there. Hence there are only p-k models to be considered and we pick the model with the best improvement in each step. At the end we use as well the cross-validated prediction error to select the best model out of p+1 models.\\
 	Forward stepwise selection is computationally much more efficient but in the other hand, it is not guaranteed to find the best subset possible.\\
-	Forward stepwise selection can be applied if n<p, but only models up to order n-1 can be calculated, since the least squares fit does not give a unique solution for p>=n. 
+	Forward stepwise selection can be applied if n<p, but only models up to order n-1 can be calculated, since the least squares fit does not give a unique solution for p>=n.
 	\paragraph{Backward stepwise selection}
 	As the name implies, backward stepwise selection starts with a full model of p predictors. In each step k models containing all previous predictors but one are fitted. The best of these models is kept and again at the end the best out of the p+1 model is selected using cross-validation prediction error. The computational complexity is identical to forward stepwise selection and also we might miss the best model but unlike forward stepwise selection, we require that a full model can be fit. Hence \(p<n\).
 	\subsection{Shrinkage methods}
 	Besides subset selection methods, there are two popular alternative approaches to reduce the variance in the coefficient estimates.
 	\paragraph{Ridge regression}
-	In ridge regression, the idea is that coefficients that are closer to zero are more desirable. The original optimization problem finds the coefficients such that the RSS is minimized. Now the problem is modified so that it becomes a trade-off between minimizing the RSS and minimizing the wieghted sum of the squared coefficients.
+	In ridge regression, the idea is that coefficients that are closer to zero are more desirable. The original optimization problem finds the coefficients such that the RSS is minimized. Now the problem is modified so that it becomes a trade-off between minimizing the RSS and minimizing the weighted sum of the squared coefficients.
 	\begin{equation}
 	\begin{split}
 		RSS &= \sum_{i=1}^{n}(y_{i}-\beta_{0}-\sum_{j=1}^{p}\beta_{j}x_{ij})^2\\
@@ -25,18 +25,18 @@
 	The tradeoff factor is called \(\lambda\) and needs to be found separately using cross-validation. In ridge regression, it is important that the predictor variables are standardized.
 	\begin{equation}
 		\tilde{x}_{ij}=\frac{x_{ij}}{\sqrt{\frac{1}{n}\sum_{i=1}^{n}(x_{ij}-\overline{x}_{j})^2}}
-	\end{equation} 
+	\end{equation}
 	Why does it improve over least squares?\\
 	As \(\lambda\) increases the flexibility decreases and this results in higher bias but lower variance. We know there is an optimal \(\lambda\), where the sum of the variance and the \(bias^2\) is minimal. This value will be found using cross-validation. The calculation of the ridge regression is efficient and is almost as fast as the least squares method.
 	\paragraph{The lasso}
-	Ridge regression does not remove predictors from the model. The lasso approach overcomes this limitation. 
+	Ridge regression does not remove predictors from the model. The lasso approach overcomes this limitation.
 	\begin{equation}
 	\begin{split}
 		RSS+\lambda\sum_{j=1}^{p}|\beta_{j}| &= \sum_{i=1}^{n}(y_{i}-\beta_{0}-\sum_{j=1}^{p}\beta_{j}x_{ij})^2+\lambda\sum_{j=1}^{p}|\beta_{j}|\\
 		\|\beta\|_{1}&=\sum|\beta_{j}|
 	\end{split}
 	\end{equation}
-	The lasso and ridge regression are very similar but the only difference is the norm used in the penalty term. The term also encourages small coefficients as in the ridge regression and in addition, the \(|_{1}\) norm will force some coefficients to exaclty zero which results in variable selection. Hence the lasso models are easier to interpret. The lasso can produce a model involving any number of variables and it all depends on the trade-off factor \(\lambda\).
+	The lasso and ridge regression are very similar but the only difference is the norm used in the penalty term. The term also encourages small coefficients as in the ridge regression and in addition, the \(|_{1}\) norm will force some coefficients to exactly zero which results in variable selection. Hence the lasso models are easier to interpret. The lasso can produce a model involving any number of variables and it all depends on the trade-off factor \(\lambda\).
 	\paragraph{Alternative formulations}
 	It can be shown, that the coefficient estimates solve the following problems:
 	\begin{equation}
@@ -55,7 +55,7 @@
 	\begin{equation}
 		Z_{m}=\sum_{j=1}^{p}\phi_{jm}X_{j}
 	\end{equation}
-	Now we can fit the linear regression model to the transformed data using least squares. 
+	Now we can fit the linear regression model to the transformed data using least squares.
 	\begin{equation}
 		y_{i}=\theta_{0}+\sum_{m=1}^{M}\theta_{m}z_{im}+\epsilon_{i}, i=1,...,n
 	\end{equation}
@@ -64,15 +64,15 @@
 		\beta_{j}=\sum_{m=1}^{M}\theta_{m}\phi_{jm}
 	\end{equation}
 	\paragraph{Principal components approach}
-	PCA is a popular approach of dimensionality reduction in many fields. The first principal component vector defines a line that is as close as prossible to the data in that it minimizes the sum of the squared \textbf{perpendicular} distances between each point and the line. The second principal component is also a linear combination of the variables having the largest variance but with the added constraint, that is has to be uncorrelated with the first pricipal component. This constraint implies that the two principal components need to be orthogonal (perpendicular) to each other. For higher dimensional data (\(p>2\)), more principal components can be calculated. They would successively maximize variance, subject to the constraint of being uncorrelated with the precending components. 
+	PCA is a popular approach of dimensionality reduction in many fields. The first principal component vector defines a line that is as close as possible to the data in that it minimizes the sum of the squared \textbf{perpendicular} distances between each point and the line. The second principal component is also a linear combination of the variables having the largest variance but with the added constraint, that is has to be uncorrelated with the first principal component. This constraint implies that the two principal components need to be orthogonal (perpendicular) to each other. For higher dimensional data (\(p>2\)), more principal components can be calculated. They would successively maximize variance, subject to the constraint of being uncorrelated with the preceding components.
 	\subparagraph{Principal components regression}
-	First the first M principal components are found and then these are used as predictors in a linear regression model that is fit using least squares. The underlaying implicit assumption is, that the directions in which the original predicors show the most variation are the directions that are associated with the response. When using PCR one should work with the standardized predictors so that the units in which the predictors are measured in have no influence.
+	First the first M principal components are found and then these are used as predictors in a linear regression model that is fit using least squares. The underlying implicit assumption is, that the directions in which the original predictors show the most variation are the directions that are associated with the response. When using PCR one should work with the standardized predictors so that the units in which the predictors are measured in have no influence.
 	\begin{equation}
 		\tilde{x}_{ij}=\frac{x_{ij}}{\sqrt{\frac{1}{n}\sum_{i=1}^{n}(x_{ij}-\overline{x}_{j})^2}}
 	\end{equation}
 	For partial least squares not only the predictors are normalized but also the response, since the response is used to find the optimal transform.
 	\paragraph{Partial least squares}
-	The PCR approach identifies the directions that best capture the variance in the predictors. This is achieved without using the response, or in other words, this is an unsupervised technique. Hence PCR has a drawback, there is no guarantee that the directions that best describe the predictors will also be the best directions to describe the response. PLS is a subervised alternative to PCR.
+	The PCR approach identifies the directions that best capture the variance in the predictors. This is achieved without using the response, or in other words, this is an unsupervised technique. Hence PCR has a drawback, there is no guarantee that the directions that best describe the predictors will also be the best directions to describe the response. PLS is a supervised alternative to PCR.
 	\begin{equation}
 	\begin{split}
 		Z_{m}&=\sum_{j=1}^{p}\phi_{jm}X_{j}\\
@@ -85,5 +85,5 @@
 	\paragraph{High dimensional data}
 	Traditionally, the number of predictors was much smaller than the number of observations. The situation is changing with the ease that data can be collected today.
 	\paragraph{Interpreting results in high dimensions}
-	Multi-collinearty is a major problem in high dimensional data. If \(p>n\) then any predictor variable can be written as a linear combination of the other variables. Hence we can never know exactly which variables truly are predictive of the outcome and we can never identify the best coefficients for use in the regression. Also error reporting on the training set is problematic in high dimensions. If the number of predictors rises (\(p>n\)), even when they are completely unrelated to the response, the training MSE and the \(R^2\) value can be made arbitrarily good. Hence it is fundamental to report results on an independent test set, or fi this is not possible, perform cross-validation.
+	Multi-collinearity is a major problem in high dimensional data. If \(p>n\) then any predictor variable can be written as a linear combination of the other variables. Hence we can never know exactly which variables truly are predictive of the outcome and we can never identify the best coefficients for use in the regression. Also error reporting on the training set is problematic in high dimensions. If the number of predictors rises (\(p>n\)), even when they are completely unrelated to the response, the training MSE and the \(R^2\) value can be made arbitrarily good. Hence it is fundamental to report results on an independent test set, or fi this is not possible, perform cross-validation.
 \end{document}

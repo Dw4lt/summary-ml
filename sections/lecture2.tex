@@ -103,9 +103,9 @@
 	Since the t-distribution is a family of distributions, it is important to know which one to use and this depends on the number of training samples.
 	For example, if n=30 then the p-value thresholds for rejecting the null-hypothesis is 1\%(5\%) imply that a t-statistic of around 2.75(2) is enough to reject the null-hypothesis.\\
 	Hence for p=1\%, if the estimate of the slope is about 2.75 times the standard error removed from 0, then we conclude that there is a relationship between X and Y.
-	
+
 	\paragraph{Accuracy of the model}
-	The quality of a linear regression fit is ussually assessed using the residual standard error and the \(R^2\) statistic.
+	The quality of a linear regression fit is usually assessed using the residual standard error and the \(R^2\) statistic.
 	\begin{equation}
 		Y = \beta_{0} + \beta_{1}X + \epsilon
 	\end{equation}
@@ -122,18 +122,18 @@
 	\begin{equation}
 		R^2 = \frac{TSS - RSS}{TSS} = 1-\frac{RSS}{TSS}
 	\end{equation}
-	The \(R^2\) measures the proportion of variability in Y that can be explained using X. A \(R^2\) value close to one means that a large part of the variability in the response has been explined by the regression, a value close to zero means that most of the variability in the response could not be explained by the regression. This could be because the relationship is highly non-linear and/or the inherent random error is already high. Nevertheless, it is not clear what a "good" \(R^2\) statistic should be.\\
+	The \(R^2\) measures the proportion of variability in Y that can be explained using X. A \(R^2\) value close to one means that a large part of the variability in the response has been explained by the regression, a value close to zero means that most of the variability in the response could not be explained by the regression. This could be because the relationship is highly non-linear and/or the inherent random error is already high. Nevertheless, it is not clear what a "good" \(R^2\) statistic should be.\\
 	For simple linear regression the \(R^2\) statistic is identical to the sample correlation squared.
 	\begin{equation}
 		Cor(X,Y)=\frac{\sum_{i=1}^{n}(x_{i}-\overline{x})(y_{i}-\overline{y})}{\sqrt{\sum_{i=1}^{n}(x_{i}-\overline{x})^2}\sqrt{\sum_{i=1}^{n}(y_{i}-\overline{y})^2}}
-	\end{equation} 
-	\subsection{Multiple linear regression}	
+	\end{equation}
+	\subsection{Multiple linear regression}
 	\paragraph{Estimating the coefficients}
 	Instead of doing each media (in the example) separately, a joint approach is more promising, since the correlations between the media can be captured.
 	\begin{equation}
 		Y = \beta_{0}+\beta_{1}X_{1}++\beta_{2}X_{2}+...+\beta_{n}X_{n}+\epsilon
 	\end{equation}
-	Just as in the simple regression case, the coefficients (parameters) are estimated in such a way, that the sum of squared reiduals in the training data is minimized.
+	Just as in the simple regression case, the coefficients (parameters) are estimated in such a way, that the sum of squared residuals in the training data is minimized.
 	\begin{equation}
 	\begin{split}
 		RSS &= \sum_{i=1}^{n}(y_{i}-\hat{y}_{i})^2\\
@@ -162,7 +162,7 @@
 	\begin{equation}
 		F = \frac{\frac{RSS_{0}-RSS}{q}}{\frac{RSS}{n-p-1}}
 	\end{equation}
-	Assume we only leave out one predictor variable, then the appropriate F-statistic (and the associated p-value) would tell us the partial effect of adding that left out variable to the model. It turns out, the F-statistic, if only one variable is left out, is identical to the sqared t-statistic.
+	Assume we only leave out one predictor variable, then the appropriate F-statistic (and the associated p-value) would tell us the partial effect of adding that left out variable to the model. It turns out, the F-statistic, if only one variable is left out, is identical to the squared t-statistic.
 	\paragraph{Deciding on important variables}
 	Once the overall F-statistic p-value has been calculated and it is smaller than 1\% (5\%), then at least one predictor is significantly associated with response. So to find out, which predictors are actually associated, we could do an exhaustive search, but this is really slow. Other approaches are called forward selection, backward selection and mixed selection, where all approaches are greedy ones.
 	\paragraph{Model fit}
@@ -183,8 +183,8 @@
 	Once the multiple linear regression model has been trained, it is simple to use it for prediction. There are three types of uncertainties associated with this prediction.
 	\begin{description}
 		\item The coefficients \(\hat{\beta}_{0},\hat{\beta}_{1},...\) are estimates for the real \(\beta_{0},\beta_{1},...\) and its only an estimate for a plane. The inaccuracy in the coefficient estimates is related to the reducible error. We can compute the confidence interval in order to determine how close \(\hat{Y}\) will be to \(f(X)\)
-		\item Of course, in practice assuming a linear model is almost always an approximation of reality, so there is an additional source of potentially reducible error which we call model bias. However, here we will ignore this dicrepancy, and operate as if the linear model were correct.
-		\item Even if we knew the true values for the coefficients, the response value cannot be predicted perfectly because of the random error, which we referred as the irreducible error. We use prediction intervals to answer how much will \(Y\) vary from \(\hat{Y}\). These intervals are always wider than confidence intervals, because they incorporate both the error in the estimate (reducible error) and the uncerainty as to how much an individual point will differ from the population regression plane (irreducible error)
+		\item Of course, in practice assuming a linear model is almost always an approximation of reality, so there is an additional source of potentially reducible error which we call model bias. However, here we will ignore this discrepancy, and operate as if the linear model were correct.
+		\item Even if we knew the true values for the coefficients, the response value cannot be predicted perfectly because of the random error, which we referred as the irreducible error. We use prediction intervals to answer how much will \(Y\) vary from \(\hat{Y}\). These intervals are always wider than confidence intervals, because they incorporate both the error in the estimate (reducible error) and the uncertainty as to how much an individual point will differ from the population regression plane (irreducible error)
 	\end{description}
 	\subsection{Other consideration in the regression model}
 	\paragraph{Qualitative predictors}
@@ -247,7 +247,7 @@
 	\end{split}
 	\end{equation}
 	We added a cross term to the equation so that the slope of \(X_{1}\) now clearly depends on \(X_{2}\) so adjusting \(X_{2}\) will change the impact of \(X_{1}\) on Y\\
-	There can also be interaction terms between qualitative variables as well as between qualitatives and quantitative variables.
+	There can also be interaction terms between qualitative variables as well as between qualitative and quantitative variables.
 	\begin{equation}
 	\begin{split}
 		Y &\approx \beta_{0}+\beta{1}X_{1}+\begin{cases}
@@ -261,10 +261,10 @@
 	\end{split}
 	\end{equation}
 	\paragraph{Non-linear relationships}
-	The simplest extension of the linear models to non-linear problems is called polynomial regression. The simplest approach to allow for a non-linear relationship is to add transformed versions of the predictors to the model. 
+	The simplest extension of the linear models to non-linear problems is called polynomial regression. The simplest approach to allow for a non-linear relationship is to add transformed versions of the predictors to the model.
 	\begin{equation}
 		Y = \beta_{0}+\beta_{1}x+\beta_{2}x^2+\epsilon
-	\end{equation} 
+	\end{equation}
 	But we have to be careful to not overtrain the model with higher orders.
 	\paragraph{Potential problems}
 	While linear models are powerful there are a list of potential problems, one needs to be aware of
@@ -276,20 +276,20 @@
 	An important assumption is, that the error terms are uncorrelated and this is called noise. If the error terms are correlated, then the standard error terms are too small and this leads to confidence and prediction intervals that are to narrow. This leads to p-values that are too low.\\
 	In general the assumption that the errors are uncorrelated is very important for linear regression and other statistical methods and hence care should be taken when designing experiments to measure data, such that such correlations are not introduced.
 	\subparagraph{Non-constant variance of error}
-	We assume that the error terms have a constant variance, the standard errors, confidence intervals and hpothesis test depend on this. But unfortunately, this assumption is sometimes violated.\\
+	We assume that the error terms have a constant variance, the standard errors, confidence intervals and hypothesis test depend on this. But unfortunately, this assumption is sometimes violated.\\
 	Often the error term is correlated with the response. Higher responses have higher errors. Or in other words, the errors are proportional to the response.\\
 	Identifying non-constant variances in the errors uses the residual plot, where the envelope of the residuals is not constant, but for example, a funnel.\\
 	One solution to the funnel problem is to transform the response using an inverse function such as log(Y) or sqrt(Y). This will shrink the larger responses and hence reduce the effect.
 	\subparagraph{Outliers}
 	An outlier is a point for which the true response is far away form the predicted response and it belongs to common predictor values.\\
 	In this case, excluding the outlier does not really change the least squares fit, but it does change the performance measures.\\
-	The residual polot can be used to identify outliers and then we can calculate the studentized residuals.
+	The residual plot can be used to identify outliers and then we can calculate the studentized residuals.
 	\begin{equation}
 	\frac{\hat{\epsilon}_{i}}{\sigma\sqrt{1-h_{i}}}
 	\end{equation}
 	A value over 3 defines an outlier.
 	\subparagraph{High leverage points}
-	A high leverage point is a data point with an unusual predictor value. In this case, removing the data point chages the least squares fit significantly. Such problematic high leverage points need to be identified and removed. \\
+	A high leverage point is a data point with an unusual predictor value. In this case, removing the data point changes the least squares fit significantly. Such problematic high leverage points need to be identified and removed. \\
 	\begin{equation}
 		h_{i} = \frac{1}{n}+\frac{(x_{i}-\overline{x})^2}{\sum_{i'=1}^{n}(x_{i'}-\overline{x})^2}
 	\end{equation}
@@ -297,10 +297,10 @@
 	\subparagraph{Collinearity}
 	Two or more predictors are highly correlated, hence it is not clear how to distribute the slope to the two or more predictors. \\
 	This reduces the accuracy of the estimation of the slopes. Hence the standard errors grow which in turn results in smaller t-statistics which in turn results in larger p-values.\\
-	I there is a collinearity between only two predictor variables, then simply inspecting the (normalized) correlation matrix will show a high correlation between them, if there is a collinearty between more than two variables, a more sophisticated approach needs to be used called the variance infliation factor VIF.
+	I there is a collinearity between only two predictor variables, then simply inspecting the (normalized) correlation matrix will show a high correlation between them, if there is a collinearity between more than two variables, a more sophisticated approach needs to be used called the variance inflation factor VIF.
 	\begin{equation}
 		VIF(\hat{\beta}_{j})=\frac{1}{1-R^2_{X_{j}|X_{-j}}}
-	\end{equation}	
+	\end{equation}
 	The minimum of VIF is 1, which indicates a complete lack of collinearity. As a rule of thumb, values above 5 to 10 indicate a problem with collinearity.\\
 	Once the variables with collinearity are detected, there are two obvious solutions:
 	\begin{itemize}
@@ -309,12 +309,12 @@
 	\end{itemize}
 	\subsection{Comparison of linear regression with KNN}
 	Linear regression is a parametric approach. If the linearity assumption holds, this will result in good results which are easy to interpret. If the assumption does not hold, this will result in a low performing scheme.\\
-	The KNN regression is a non-parametric approach and hence there are no assumptions that can be violated. But the results are often hard to interpret and it ussually takes much more training data to achieve similar performance. The KNN regression is very similar to KNN classification but the main difference is, that there is no voting among the K nearest neighbors in the set \(N_{0}\) for the winning class, but an average is performed for the prediction value.
+	The KNN regression is a non-parametric approach and hence there are no assumptions that can be violated. But the results are often hard to interpret and it usually takes much more training data to achieve similar performance. The KNN regression is very similar to KNN classification but the main difference is, that there is no voting among the K nearest neighbors in the set \(N_{0}\) for the winning class, but an average is performed for the prediction value.
 	\begin{equation}
 		\hat{f}(x_{0})=\frac{1}{K}\sum_{x_{i}N_{0}}y_{i}
 	\end{equation}
 	When K=1 results in a very rough approximation which has a large variance, since every training point is directly used in the solution. Hence larger variance, but lower bias.\\
 	When K=9 results in a smoother approximation. Here the variance is clearly smaller, since every training point is averaged with eight others, but the bias increases. Hence lower variance, but higher bias.\\
 	A parametric approach will outperform an non-parametric approach, when the assumed parametric form is close to the true form of f() or if there is not much training data. If the true f is linear, linear regression should be unbeatable. If it's a small non-linearity, the simple linear regression approach and the KNN regression scheme are similar, but if the non-linearity becomes stronger, the KNN regression scheme outperforms the simple linear regression approach.\\
-	When we have many predictor variables, this becomes a high dimensional problem, where we never have enough training data for parametric approaches.	
+	When we have many predictor variables, this becomes a high dimensional problem, where we never have enough training data for parametric approaches.
 \end{document}

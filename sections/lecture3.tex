@@ -1,7 +1,7 @@
 % !TeX root = ../document.tex
 \documentclass[../document.tex]{subfiles}
 \lstset{inputpath=sections}
-\begin{document}	
+\begin{document}
 	\subsection{Logistic regression}
 	\paragraph{logistic model}
 	A linear model can't guarantee that the predicted response will be between 0 and 1. Hence the idea is to use the logistics function, which goes in an S-shape smoothly from 0 to 1 and model its argument using a linear model.
@@ -45,20 +45,20 @@
 	\end{equation}
 	Again, the coefficients are estimated using the maximum likelihood approach.
 	\paragraph{Logistic regression for more than two response classes}
-	If we had three categories, we would need to estimate the probabilities of each of them, given the observed predictors. While there is a multiclass extension for two-class logistic regression, it is not used very often in practice.
+	If we had three categories, we would need to estimate the probabilities of each of them, given the observed predictors. While there is a multi-class extension for two-class logistic regression, it is not used very often in practice.
 	\subsection{Linear discriminant analysis}
 	\paragraph{Introduction}
-	In linear discriminant analysis we estimate the probability desity functions of the observations, given a particular class. Then we apply Bayes theorem to flip these probabilities around and get the one on the right, which allow us to make an optimal decision.
+	In linear discriminant analysis we estimate the probability density functions of the observations, given a particular class. Then we apply Bayes theorem to flip these probabilities around and get the one on the right, which allow us to make an optimal decision.
 	\paragraph{Using Bayes' theorem for classification}
 	We want to classify observations into K classes and we need to know what the probability of each class is, without having any observations.
-	We also need to know what the pdf's for each the observations are, given a particular class k
+	We also need to know what the PDFs for each the observations are, given a particular class k
 	\begin{equation}
 	\begin{split}
 		\pi_{k}\\
 		f_{k}(X)
 	\end{split}
 	\end{equation}
-	This is the likelihood of an observation, given a particular class. \(f_{k}(x)\) is relatively large, if there is a high probability that an observation in the k'th class has a value around a small neghborhood of x.
+	This is the likelihood of an observation, given a particular class. \(f_{k}(x)\) is relatively large, if there is a high probability that an observation in the k'th class has a value around a small neighborhood of x.
 	\begin{equation}
 	\begin{split}
 		Pr(Y=k|X=x)&=\frac{\pi_{k}f_{k}(x)}{\sum_{l=1}^{K}\pi_{l}f_{l}(x)}\\
@@ -94,7 +94,7 @@
 		\hat{\sigma^2}&=\frac{1}{n-K}\sum_{k=1}^{K}\sum_{i:y_{i}=k}(x_{i}-\hat{\mu_{k}})^2
 	\end{split}
 	\end{equation}
-	We assume the pdfs to be Gaussian and the estimates above for the means and the common variance. The prior probabilities are estimated using the relative frequency of a particular class in the training set.
+	We assume the PDFs to be Gaussian and the estimates above for the means and the common variance. The prior probabilities are estimated using the relative frequency of a particular class in the training set.
 	\begin{equation}
 		\hat{\pi_{k}}=n_{k}/n
 	\end{equation}
@@ -103,7 +103,7 @@
 		\hat{\delta}_{k}(x)=x*\frac{\hat{\mu}_{k}}{\hat{\sigma}^2}-\frac{\hat{\mu}_{k}^2}{2\hat{\sigma}^2}+log(\hat{\pi}_{k})
 	\end{equation}
 	\paragraph{LDA using multiple predictors p\(>\)1}
-	Extending LDA to multiple predictors results in the need for a model of a multidimensional pdf. We will select a multidimensional Gaussian pdf where the means of the classes are different but all classes have the same covariance matrix.
+	Extending LDA to multiple predictors results in the need for a model of a multidimensional PDF. We will select a multidimensional Gaussian PDF where the means of the classes are different but all classes have the same covariance matrix.
 	\begin{equation}
 	\begin{split}
 		X&=(X_{1},X_{2},...,X_{p})\\
@@ -150,8 +150,8 @@
 	\paragraph{QDA}
 	\begin{itemize}
 		\item In some sense this is a compromise between simple linear boundaries of LDA/logistic regression and arbitrary boundaries of KNN
-		\item Here the boundaries are hyperparabolas, which are much more complicated than hyperplanes but still much less flexible than KNN boundaries
+		\item Here the boundaries are hyper-parabolas, which are much more complicated than hyperplanes but still much less flexible than KNN boundaries
 		\item Hence it does take more training data than the linear methods but much less than KNN to perform well
 	\end{itemize}
-	
+
 \end{document}

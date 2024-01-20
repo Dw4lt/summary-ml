@@ -2,23 +2,23 @@
 \documentclass[../document.tex]{subfiles}
 \lstset{inputpath=sections}
 \begin{document}
-	\subsection{Linear regression}	
+	\subsection{Linear regression}
 	\paragraph{Linear regression}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|ccc|}{|ccccccccccccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
 			Form & $Y \approx \beta_{0} + \beta_{1}X$ &\\
 			$\hat{\beta_{1}}$ &
-			$\hat{\beta}_{1}=\frac{\sum_{i=1}^{n}(x_{i}-\overline{x})(y_{i}-\overline{y})}{\sum_{i=1}^{n}(x_{i}-\overline{x})^2}$&\\ 
-			$\hat{\beta_{0}}$ & $\hat{\beta}_{0}=\overline{y}-\hat{\beta}_{1}\overline{x}$ &\\ 
-			True variance & $Var(\hat{\mu})=SE(\hat{\mu})^2=\frac{\sigma^2}{n}$ &\\ 
+			$\hat{\beta}_{1}=\frac{\sum_{i=1}^{n}(x_{i}-\overline{x})(y_{i}-\overline{y})}{\sum_{i=1}^{n}(x_{i}-\overline{x})^2}$&\\
+			$\hat{\beta_{0}}$ & $\hat{\beta}_{0}=\overline{y}-\hat{\beta}_{1}\overline{x}$ &\\
+			True variance & $Var(\hat{\mu})=SE(\hat{\mu})^2=\frac{\sigma^2}{n}$ &\\
 			 & $SE(\hat{\beta}_{0})^2=\sigma^2(\frac{1}{n}+\frac{\overline{x}^2}{\sum_{i=1}^{n}(x_{i}-\overline{x})^2})$ &\\
 			 & $SE(\hat{\beta}_{1})^2=\frac{\sigma^2}{\sum_{i=1}^{n}(x_{i}-\overline{x})^2}$ &\\
 			Estimated variance& $\sqrt{\frac{RSS}{n-2}} = \sqrt{\frac{\sum_{i=1}^{n}(y_{i}-\hat{y}_{i})^2}{n-2}}$ &\\
 			 & $\hat{\beta}_{1}\pm 2*SE(\hat{\beta}_{1})$&\\
-			 & $\hat{\beta}_{0}\pm 2*SE(\hat{\beta}_{0})$&\\ 
+			 & $\hat{\beta}_{0}\pm 2*SE(\hat{\beta}_{0})$&\\
 			t-statistic& $t = \frac{\hat{\beta}_{1}-0}{SE(\hat{\beta}_{1})}$ &reject \(H_{0}\) t\(>\)2(5\%) t\(>\)2.75(1\%)\\
 			Accuracy&$TSS = \sum(y_{i}-\overline{y})^2$&\\
-			 & $R^2 = \frac{TSS - RSS}{TSS} = 1-\frac{RSS}{TSS}$& $0\leq R^2\leq 1, \approx$ 1, much explained\\ 
+			 & $R^2 = \frac{TSS - RSS}{TSS} = 1-\frac{RSS}{TSS}$& $0\leq R^2\leq 1, \approx$ 1, much explained\\
 			 & $Cor(X,Y)=\frac{\sum_{i=1}^{n}(x_{i}-\overline{x})(y_{i}-\overline{y})}{\sqrt{\sum_{i=1}^{n}(x_{i}-\overline{x})^2}\sqrt{\sum_{i=1}^{n}(y_{i}-\overline{y})^2}}$ &\\
 		\end{TAB}
 	\end{center}
@@ -28,8 +28,8 @@
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|ccc|}{|ccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
 			Form & $Y = \beta_{0}+\beta_{1}X_{1}++\beta_{2}X_{2}+...+\beta_{n}X_{n}+\epsilon$ & \\
 			RSS &
-			$RSS = \sum_{i=1}^{n}(y_{i}-\hat{y}_{i})^2= \sum_{i=1}^{n}(y_{i}-\hat{\beta}_{0}-\hat{\beta}_{1}x_{i1}-\hat{\beta}_{2}x_{i2}-...-\hat{\beta}_{n}x_{in})^2$ & \\ 
-			F-statistic & $F = \frac{\frac{TSS-RSS}{p}}{\frac{RSS}{n-p-1}}$ & F\(>\)1 good model\\ 
+			$RSS = \sum_{i=1}^{n}(y_{i}-\hat{y}_{i})^2= \sum_{i=1}^{n}(y_{i}-\hat{\beta}_{0}-\hat{\beta}_{1}x_{i1}-\hat{\beta}_{2}x_{i2}-...-\hat{\beta}_{n}x_{in})^2$ & \\
+			F-statistic & $F = \frac{\frac{TSS-RSS}{p}}{\frac{RSS}{n-p-1}}$ & F\(>\)1 good model\\
 		\end{TAB}
 	\end{center}
 	\paragraph{Other considerations}
@@ -44,8 +44,8 @@
 			$\begin{cases}
 			(\beta_{0}+\beta_{2})+(\beta_{1}+\beta_{3})X_{1} &\text{if a}\\
 			\beta_{0}+\beta_{1}X_{1} &\text{if not a}
-			\end{cases}$&\\ 
-			Non-linear & $Y = \beta_{0}+\beta_{1}x+\beta_{2}x^2+\epsilon$& \\ 
+			\end{cases}$&\\
+			Non-linear & $Y = \beta_{0}+\beta_{1}x+\beta_{2}x^2+\epsilon$& \\
 			Outliers & $\frac{\hat{\epsilon}_{i}}{\sigma\sqrt{1-h_{i}}} $&$>3=\text{outlier}$\\
 			High leverage points &$h_{i} = \frac{1}{n}+\frac{(x_{i}-\overline{x})^2}{\sum_{i'=1}^{n}(x_{i'}-\overline{x})^2} $&$>\frac{p+1}{n}=\text{hl point}$\\
 			Collinearity & $VIF(\hat{\beta}_{j})=\frac{1}{1-R^2_{X_{j}|X_{-j}}}$&$>5-10=\text{problem}$\\
@@ -58,7 +58,7 @@
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|ccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
 			Form & $p(X)=\frac{e^{\beta_{0}+\beta_{1}X}}{1+e^{\beta_{0}+\beta_{1}X}}$ \\
 			Coefficients & $l(\beta_{0},\beta_{1})=\prod_{i:y_{i}=1}p(x_{i})\prod_{i':y_{i'}=0}(1-p(x_{i'}))$ \\
-			Multiple LR & $p(X)=\frac{e^{\beta_{0}+\beta_{1}X_{1}+...+\beta_{p}X_{p}}}{1+e^{\beta_{0}+\beta_{1}X_{1}+...+\beta_{p}X_{p}}}$ \\ 
+			Multiple LR & $p(X)=\frac{e^{\beta_{0}+\beta_{1}X_{1}+...+\beta_{p}X_{p}}}{1+e^{\beta_{0}+\beta_{1}X_{1}+...+\beta_{p}X_{p}}}$ \\
 		\end{TAB}
 	\end{center}
 	\paragraph{Linear discriminant analysis}
@@ -66,7 +66,7 @@
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|ccccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
 			Form & $\hat{\delta}_{k}(x)=x*\frac{\hat{\mu}_{k}}{\hat{\sigma}^2}-\frac{\hat{\mu}_{k}^2}{2\hat{\sigma}^2}+log(\hat{\pi}_{k})$ \\
 			$\mu$ & $\hat{\mu_{k}}=\frac{1}{n_{k}}\sum_{i:y_{i}=k}x_{i}$ \\
-			$\sigma$ & $\hat{\sigma^2}=\frac{1}{n-K}\sum_{k=1}^{K}\sum_{i:y_{i}=k}(x_{i}-\hat{\mu_{k}})^2$\\ 
+			$\sigma$ & $\hat{\sigma^2}=\frac{1}{n-K}\sum_{k=1}^{K}\sum_{i:y_{i}=k}(x_{i}-\hat{\mu_{k}})^2$\\
 			frequency & $\hat{\pi_{k}}=n_{k}/n$\\
 			multiple predictors & $\delta_{k}(x)=x^T\Sigma^{-1}\mu_{k}-\frac{1}{2}\mu_{k}^T\Sigma^{-1}\mu_{k}+log\pi_{k}$\\
 		\end{TAB}
@@ -112,7 +112,7 @@
 	\paragraph{Step functions}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|c|}% (rows,min,max)[tabcolsep]{columns}{rows}
-			Form & $y_{i}=\beta_{0}+\beta_{1}C_{1}(x_{i})+\beta_{2}C_{2}(x_{i})+...+\beta_{K}C_{K}(x_{i})+\epsilon_{i}$ \\ 
+			Form & $y_{i}=\beta_{0}+\beta_{1}C_{1}(x_{i})+\beta_{2}C_{2}(x_{i})+...+\beta_{K}C_{K}(x_{i})+\epsilon_{i}$ \\
 		\end{TAB}
 	\end{center}
 	\paragraph{Regression splines}
@@ -136,7 +136,7 @@
 	\paragraph{GAM}
 	\begin{center}
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|c|}% (rows,min,max)[tabcolsep]{columns}{rows}
-			Form & $y_{i}=\beta_{0}+\sum_{j=1}^{p}f_{j}(x_{ij})+\epsilon_{i} = \beta_{0}+f_{1(}x_{i1})+f_{2}(x_{i2})+...+f_{p}(x_{ip})+\epsilon_{i}$ \\ 
+			Form & $y_{i}=\beta_{0}+\sum_{j=1}^{p}f_{j}(x_{ij})+\epsilon_{i} = \beta_{0}+f_{1(}x_{i1})+f_{2}(x_{i2})+...+f_{p}(x_{ip})+\epsilon_{i}$ \\
 		\end{TAB}
 	\end{center}
 	\sectionbreak
@@ -192,7 +192,7 @@
 	\paragraph{K-means clustering}
 	\begin{center}
 		\begin{enumerate}
-			\item Randomly assign a number, from 1 to K, to each of the observations. These serve as initial cluster assignment for the observations. 
+			\item Randomly assign a number, from 1 to K, to each of the observations. These serve as initial cluster assignment for the observations.
 			\item Iterate until the cluster assignments stop changing:
 			\begin{itemize}
 				\item For each of the K clusters, compute the cluster centroid. The kth cluster centroid is the vector of the p feature means for the observations in the kth cluster.
@@ -203,7 +203,7 @@
 	\paragraph{Hierarchical clustering}
 	\begin{center}
 		\begin{enumerate}
-			\item Begin with n observations and a measure (Euclidean distance) of all the 
+			\item Begin with n observations and a measure (Euclidean distance) of all the
 			\(
 			\begin{pmatrix}
 			n\\2
@@ -217,5 +217,5 @@
 			\end{itemize}
 		\end{enumerate}
 	\end{center}
-	
+
 \end{document}

@@ -1,7 +1,7 @@
 % !TeX root = ../document.tex
 \documentclass[../document.tex]{subfiles}
 \lstset{inputpath=sections}
-\begin{document}	
+\begin{document}
 	\subsection{Polynomial regression}
 	Linear models used so far are easy to interpret and if the true relationship is not approximately linear, limited in predictive power. So we increase the predictive power but want to maintaining as much interpretability as possible if we relax the linearity assumption.
 	\paragraph{Straightforward extension to linear regression}
@@ -53,9 +53,9 @@
 	\end{equation}
 	For example if there is a knot at c we have a cubic polynomial on the left and another one the right of c. Using more knots leads to more flexible fits.
 	\paragraph{Constraints and splines}
-	We would like the overall function to be continous. Hence we add the constraint, that at a knot both polynomials must have the same values. We also want the first and the second derivatives to be continuous. This will result in a very smooth transition from one polynomial to the next. Hence two more constraints need to be added per knot. Each constraint removes a degree of freedom.
+	We would like the overall function to be continuos. Hence we add the constraint, that at a knot both polynomials must have the same values. We also want the first and the second derivatives to be continuous. This will result in a very smooth transition from one polynomial to the next. Hence two more constraints need to be added per knot. Each constraint removes a degree of freedom.
 	\paragraph{The spline basis representation}
-	How can we fit cubic splines to the data? The most elegant approach is based on the spline basis representation. 
+	How can we fit cubic splines to the data? The most elegant approach is based on the spline basis representation.
 	\begin{equation}
 		y_{i}=\beta_{0}+\beta_{1}b_{1}(x_{i})+\beta_{2}b_{2}(x_{i})+...+\beta_{K+3}b_{K+3}(x_{i})+\epsilon_{i}
 	\end{equation}
@@ -67,7 +67,7 @@
 			0 \text{  otherwise  }
 		\end{cases}
 	\end{equation}
-	One can show, that the following expression will have a discontinuity in only the third derivatevie at \(\xi\). In other words, the function will stay continuous and have continuous first and second derivatives.
+	One can show, that the following expression will have a discontinuity in only the third derivative at \(\xi\). In other words, the function will stay continuous and have continuous first and second derivatives.
 	\begin{equation}
 		y_{i}=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x_{i}^2+\beta_{3}x_{i}^3+\beta_{4}h(x,\xi)+\epsilon_{i}
 	\end{equation}
@@ -81,7 +81,7 @@
 	We use cross-validation to determine the optimal number of knots.
 	\paragraph{Comparison to polynomial regression}
 	Regression splines are usually superior to polynomial regression. Regression splines can increase flexibility by adding knots, while polynomial regression needs to add powers of the predictor variable.
-	
+
 	\subsection{Smoothing splines}
 	\paragraph{An overview of smoothing splines}
 	The problem of fitting a function to the data can be solved by minimizing the RSS. On way of measuring toughness is by integrating the square of the second derivative.
@@ -109,9 +109,9 @@
 		\item degree of the polynomial fit
 		\item span s which defines how many training points are used for the local fit
 	\end{itemize}
-	The most important choice is the span s. The smaller the vlaue of s, the more local the fit is and hence the more flexible the function becomes. Again, cross-validation is used for finding the best vlaue for the span s.
+	The most important choice is the span s. The smaller the value of s, the more local the fit is and hence the more flexible the function becomes. Again, cross-validation is used for finding the best value for the span s.
 	\subsection{Generalized additive models}
-	All methods of this chapter have been developed for a single predictor. Gneralized additive models (GAMs) extends these ideas to multiple predicotors.
+	All methods of this chapter have been developed for a single predictor. Generalized additive models (GAMs) extends these ideas to multiple predictors.
 	\paragraph{GAMs for regression problems}
 	Recall the multiple regression model.
 	\begin{equation}
@@ -121,17 +121,17 @@
 	\begin{equation}
 		y_{i}=\beta_{0}+\sum_{j=1}^{p}f_{j}(x_{ij})+\epsilon_{i} = \beta_{0}+f_{1(}x_{i1})+f_{2}(x_{i2})+...+f_{p}(x_{ip})+\epsilon_{i}
 	\end{equation}
-	This is an example of a GAM. It is called an additive model because we calculate a separate \(f_{j}\) for each \(X_{j}\) and then add together all of their contributions. 
+	This is an example of a GAM. It is called an additive model because we calculate a separate \(f_{j}\) for each \(X_{j}\) and then add together all of their contributions.
 	\paragraph{Pros and cons of GAMs}
 	Pros of GAMs
 	\begin{itemize}
-		\item GAMs allow us to fit a non-linear \(f_{j}\) for each \(X_{j}\), so that we can automatically model non-linear relationships that standard linear regression will miss. This means that we do not need to manually try out many different transformations on each variable individually. 
+		\item GAMs allow us to fit a non-linear \(f_{j}\) for each \(X_{j}\), so that we can automatically model non-linear relationships that standard linear regression will miss. This means that we do not need to manually try out many different transformations on each variable individually.
 		\item The non-linear fits can potentially make more accurate predictions for the response Y.
 		\item Because the model is additive, we can still examine the effect of each \(X_{j}\) on > individually while holding all of the other variables fixed. Hence if we are interested in inference, GAMs provide a useful representation.
 	\end{itemize}
 	The main negative aspect is that the model is restricted to be additive. With many variables, important interactions can be missed. However, as with linear regression, we can manually add interaction terms to the GAM model.
 	\paragraph{CAMs for classification problems}
-	GAMs are also useful, if the responses are qualitative. 
+	GAMs are also useful, if the responses are qualitative.
 	\begin{equation}
 		log(\frac{p(X)}{1-p(X)})=\beta_{0}+f_{1}(X_{1})+f_{2}(X_{2})+...+f_{p}(X_{p})
 	\end{equation}
