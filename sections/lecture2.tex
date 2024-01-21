@@ -76,7 +76,7 @@
 	In these formulas we assume that the errors for each observation are uncorrelated with the common variance. The standard error for the slope \(\hat{\beta}_{1}\) is smaller when the X data is more spread out. Further note that the standard error for the intercept \(\hat{\beta}_{0}\) would be the same as for the sample mean of y, if the sample mean of x would be zero.\\
 	Unfortunately, the required variance is not known, but we can estimate it from the data
 	\begin{equation}
-		\sigma^2 = Var(\epsilon)
+		\hat{\sigma^2} = Var(\epsilon)
 	\end{equation}
 	\subparagraph{estimated variance}
 	When we want to estimate the variance from the data, we use the residual standard error
@@ -111,7 +111,7 @@
 	\paragraph{Accuracy of the model}
 	The quality of a linear regression fit is usually assessed using the residual standard error and the \(R^2\) statistic.
 	\begin{equation}
-		Y = \beta_{0} + \beta_{1}X + \epsilon
+		\hat{Y} = \hat{\beta}_{0} + \hat{\beta}_{1}X
 	\end{equation}
 	\begin{equation}
 		RSS = \sum_{i=1}^{n}(y_{i}-\hat{y}_{i})^2
@@ -137,7 +137,7 @@
 	\paragraph{Estimating the coefficients}
 	Instead of doing each media (in the example) separately, a joint approach is more promising, since the correlations between the media can be captured.
 	\begin{equation}
-		Y = \beta_{0}+\beta_{1}X_{1}++\beta_{2}X_{2}+...+\beta_{n}X_{n}+\epsilon
+		Y = \beta_{0}+\beta_{1}X_{1}+\beta_{2}X_{2}+...+\beta_{n}X_{n}+\epsilon
 	\end{equation}
 	Just as in the simple regression case, the coefficients (parameters) are estimated in such a way, that the sum of squared residuals in the training data is minimized.
 	\begin{equation}
@@ -147,8 +147,8 @@
 	\end{split}
 	\end{equation}
 
-	\paragraph{Is there a relationship between response and predictors}
-	To define if the predictors have an influence on the response we have a hypothesis.
+	\paragraph{Is there a relationship between response and any predictor}
+	To find out if any of the predictors have an influence on the response we propose a hypothesis: a model with at least one $\beta_i \ne 0$ fits the data better than one where all $\beta$'s are $=0$. In mathematical terms:
 	\begin{equation}
 	\begin{split}
 		&H_{0}:\beta_{1}=\beta_{2}=...=\beta_{p}=0\\
@@ -160,16 +160,21 @@
 		F = \frac{\frac{TSS-RSS}{p}}{\frac{RSS}{n-p-1}}
 	\end{equation}
 	\(p\) is the number of predictors and \(n\) is the number of training samples.
-	Given n and p, the F-distribution is completely defined and therefore the p-value can be calculated. And this p-value can be used to decide if the null hypothesis should be accepted or rejected.\\
-	So far we tested if all coefficients are zero. Sometimes one wants to test if a certain subset of q coefficients are zero.
+	Given n and p, the F-distribution is completely defined and therefore the p-value can be calculated. And this p-value can be used to decide if the null hypothesis should be accepted or rejected.
+
+	\paragraph{Is there a relationship between response and a subset of predictors}
+	We can also test if a certain subset of predictors ($q$ predictors, where $q < p$) relates to the response. For instance, if we want to test whether the last $k$ predictors influence the response ($q=k$):
 	\begin{equation}
-		H_{0}: \beta_{p-q+1}=\beta_{p-q+2}=...=\beta_{p}=0
+	\begin{split}
+		&H_{0}: \beta_{p-k+1}=\beta_{p-k+2}=...=\beta_{p}=0 \\
+		&H_{a}: \text{At least one } \beta_{p-k+1 \dots p}\ne 0 \\
+	\end{split}
 	\end{equation}
-	Now we fit a second model that uses all the predictor variables except the last q and the result in a residual sum of squares called \(RSS_{0}\)
+	Now we fit a second model that uses all the predictor variables except the last $k$, resulting in \(RSS_{0}\).
 	\begin{equation}
 		F = \frac{\frac{RSS_{0}-RSS}{q}}{\frac{RSS}{n-p-1}}
 	\end{equation}
-	Assume we only leave out one predictor variable, then the appropriate F-statistic (and the associated p-value) would tell us the partial effect of adding that left out variable to the model. It turns out, the F-statistic, if only one variable is left out, is identical to the squared t-statistic.
+	Assume we only leave out one predictor variable, then the appropriate F-statistic (and the associated p-value) would tell us the partial effect of adding that left out variable to the model. It turns out, the F-statistic, if only one variable is left out, is identical to the $t^2$-statistic.
 
 	\paragraph{Deciding on important variables}
 	Once the overall F-statistic p-value has been calculated and it is smaller than 1\% (5\%), then at least one predictor is significantly associated with response. So to find out, which predictors are actually associated, we could do an exhaustive search, but this is really slow. Other approaches are called forward selection, backward selection and mixed selection, where all approaches are greedy ones.
@@ -214,7 +219,7 @@
 	\end{split}
 	\end{equation}
 	The decision which number (1 or 0) is male/female is arbitrary. If we would have chosen to represent male with a 1 and female with a 0, the regression would have given the same result, but the interpretation would have to be consistent with the definition.\\
-	Another scheme to code such two level predictor variables does not use the 0/1 scheme but a -1/+1 scheme
+	Alternatively, a -1/+1 scheme is equally valid.
 	\begin{equation}
 	\begin{split}
 	&x_{i}=\begin{cases}
@@ -227,7 +232,9 @@
 	\end{cases}
 	\end{split}
 	\end{equation}
-	When we have qualitative predictors with more than two levels, we need more than one dummy variable. We need at least as many dummies as levels-1.
+
+	\paragraph{Qualitative predictors with multiple levels}
+	For qualitative predictors with more than two levels, we need at least levels-1 dummy variables. Here, "-1" stems from the \textbf{baseline}, which requires no dedicated dummy variable as it simply applies when no other level does.
 	\begin{equation}
 	\begin{split}
 	&x_{i1}=\begin{cases}
@@ -238,6 +245,7 @@
 	1 &\text{if ith person is Caucasian}\\
 	0 &\text{if ith person is not Caucasian}
 	\end{cases}\\
+	&\text{Baseline: if neither, the ith person is African American}\\
 	&y_{i} = \beta_{0}+\beta_{1}x_{i1}+\beta_{2}x_{i2}\epsilon_{i}=\begin{cases}
 	\beta_{0}+\beta_{1}+\epsilon_{i} &\text{if ith person is Asian}\\
 	\beta_{0}+\beta_{2}+\epsilon_{i} &\text{if ith person is Caucasian}\\
@@ -245,7 +253,7 @@
 	\end{cases}
 	\end{split}
 	\end{equation}
-	The level without dedicated dummy variable is called the baseline. Clearly the coefficients and the associated p-values do depend on the selected coding of the dummy variable. Hence instead of relying on the individual coefficients and their p-values, we better focus on the F-test which does not depend on the particular coding.
+	Clearly the coefficients and the associated p-values do depend on the selected coding of the dummy variable. Hence instead of relying on the individual coefficients and their p-values, we better focus on the F-test which does not depend on the particular coding.
 
 	\paragraph{Removing additivity assumption}
 	The linear model assumes that the relationship between the predictors and the response are additive and linear. Hence we remove the additivity assumption. \\
