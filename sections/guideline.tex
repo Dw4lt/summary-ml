@@ -3,6 +3,23 @@
 \lstset{inputpath=sections}
 \begin{document}
 
+	\paragraph{Assorted math}
+	\begin{center}
+		\begin{TAB}(@,0.5cm,1cm)[8pt]{|ccc|}{|cccccccccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
+			Variance & $Var(X+Y) = Var(X) + Var(Y) + 2Cov(X,Y)$&\\
+			& $Var(cX) = c^2Var(X)$&\\
+			& $Var(X) = Cov(X, X)$&\\
+			& $Cov(aX, bY) = ab * Cov(X, Y)$&\\
+			& $Cov(X, Y) = \frac{\sum_{i}{(X_i-\bar{X})(Y_i-\bar{Y})}}{n}$& (Population)\\
+			& $Cov(X, Y) = \frac{\sum_{i}{(X_i-\bar{X})(Y_i-\bar{Y})}}{n-1}$& (Sample)\\
+			Bayes & $P(X|Y)=\frac{P(X)P(Y|X)}{P(Y)}$ &\\
+			& $P(Y|X)=\frac{P(Y)P(X|Y)}{P(X)}$ &\\
+			& $P(Y)=\sum_i{P(Y|X_{i})P(X_i)} = \frac{P(Y|X)P(X)}{P(X|Y)}$&\\
+			& $P(X)=\sum_i{P(X|Y_{i})P(Y_i)} = \frac{P(X|Y)P(Y)}{P(Y|X)}$&\\
+		\end{TAB}
+	\end{center}
+	\sectionbreak
+
 	\subsection{Linear regression}
 
 	\paragraph{Linear regression}
@@ -13,25 +30,25 @@
 			$\hat{\beta}_{1}=\frac{\sum_{i=1}^{n}(x_{i}-\overline{x})(y_{i}-\overline{y})}{\sum_{i=1}^{n}(x_{i}-\overline{x})^2}$&\\
 			$\hat{\beta_{0}}$ & $\hat{\beta}_{0}=\overline{y}-\hat{\beta}_{1}\overline{x}$ &\\
 			True variance & $Var(\hat{\mu})=SE(\hat{\mu})^2=\frac{\sigma^2}{n}$ &\\
-			 & $SE(\hat{\beta}_{0})^2=\sigma^2(\frac{1}{n}+\frac{\overline{x}^2}{\sum_{i=1}^{n}(x_{i}-\overline{x})^2})$ &\\
-			 & $SE(\hat{\beta}_{1})^2=\frac{\sigma^2}{\sum_{i=1}^{n}(x_{i}-\overline{x})^2}$ &\\
-			Estimated variance& $\sqrt{\frac{RSS}{n-2}} = \sqrt{\frac{\sum_{i=1}^{n}(y_{i}-\hat{y}_{i})^2}{n-2}}$ &\\
-			 & $\hat{\beta}_{1}\pm 2*SE(\hat{\beta}_{1})$&\\
-			 & $\hat{\beta}_{0}\pm 2*SE(\hat{\beta}_{0})$&\\
+			& $SE(\hat{\beta}_{0})^2=\sigma^2(\frac{1}{n}+\frac{\overline{x}^2}{\sum_{i=1}^{n}(x_{i}-\overline{x})^2})$ &\\
+			& $SE(\hat{\beta}_{1})^2=\frac{\sigma^2}{\sum_{i=1}^{n}(x_{i}-\overline{x})^2}$ &\\
+			Estimated variance & $RSE=\sqrt{\frac{RSS}{n-2}} = \sqrt{\frac{\sum_{i=1}^{n}(y_{i}-\hat{y}_{i})^2}{n-2}}$& = $\hat{\sigma}$\\
+			Confidence interval & $\hat{\beta}_{1}\pm 2*SE(\hat{\beta}_{1})$&\\
+			& $\hat{\beta}_{0}\pm 2*SE(\hat{\beta}_{0})$&\\
 			t-statistic& $t = \frac{\hat{\beta}_{1}-0}{SE(\hat{\beta}_{1})}$ &reject \(H_{0}\) t\(>\)2(5\%) t\(>\)2.75(1\%)\\
 			Accuracy&$TSS = \sum(y_{i}-\overline{y})^2$&\\
-			 & $R^2 = \frac{TSS - RSS}{TSS} = 1-\frac{RSS}{TSS}$& $0\leq R^2\leq 1, \approx$ 1, much explained\\
-			 & $Cor(X,Y)=\frac{\sum_{i=1}^{n}(x_{i}-\overline{x})(y_{i}-\overline{y})}{\sqrt{\sum_{i=1}^{n}(x_{i}-\overline{x})^2}\sqrt{\sum_{i=1}^{n}(y_{i}-\overline{y})^2}}$ &\\
+			& $R^2 = \frac{TSS - RSS}{TSS} = 1-\frac{RSS}{TSS}$& $0\leq R^2\leq 1, \approx$ 1, much explained\\
+			& $Cor(X,Y)=\frac{\sum_{i=1}^{n}(x_{i}-\overline{x})(y_{i}-\overline{y})}{\sqrt{\sum_{i=1}^{n}(x_{i}-\overline{x})^2}\sqrt{\sum_{i=1}^{n}(y_{i}-\overline{y})^2}}$ &\\
 		\end{TAB}
 	\end{center}
 	\sectionbreak
 
 	\paragraph{Multiple linear regression}
 	\begin{center}
-		\begin{TAB}(@,0.5cm,1cm)[8pt]{|ccc|}{|ccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
+		\begin{TAB}(@,0.5cm,1cm)[8pt]{|ccc|}{|cccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
 			Form & $Y = \beta_{0}+\beta_{1}X_{1}++\beta_{2}X_{2}+...+\beta_{n}X_{n}+\epsilon$ & \\
-			RSS &
-			$RSS = \sum_{i=1}^{n}(y_{i}-\hat{y}_{i})^2= \sum_{i=1}^{n}(y_{i}-\hat{\beta}_{0}-\hat{\beta}_{1}x_{i1}-...-\hat{\beta}_{n}x_{in})^2$ & \\
+			RSS & $RSS = \sum_{i=1}^{n}(y_{i}-\hat{y}_{i})^2= \sum_{i=1}^{n}(y_{i}-\hat{\beta}_{0}-\hat{\beta}_{1}x_{i1}-...-\hat{\beta}_{n}x_{in})^2$ & \\
+			Estimated variance & $RSE=\sqrt{\frac{RSS}{n-p-1}}$ & = $\hat{\sigma}$\\
 			F-statistic & $F = \frac{\frac{TSS-RSS}{p}}{\frac{RSS}{n-p-1}}$ & F\(>\)1 good model\\
 		\end{TAB}
 	\end{center}
@@ -67,14 +84,6 @@
 	\sectionbreak
 
 	\subsection{Classification}
-
-	\paragraph{Bayes}
-	\begin{center}
-		\begin{TAB}(@,0.5cm,1cm)[8pt]{|c|}{|cc|}% (rows,min,max)[tabcolsep]{columns}{rows}
-			$P(X|Y)=\frac{P(X)P(Y|X)}{P(Y)}$ \\
-			$P(X)=\frac{P(Y)P(X|Y)}{P(Y|X)}$
-		\end{TAB}
-	\end{center}
 
 	\paragraph{Logistic regression}
 	\begin{center}
