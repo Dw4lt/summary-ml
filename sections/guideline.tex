@@ -38,7 +38,7 @@
 
 	\paragraph{Other considerations}
 	\begin{center}
-		\begin{TAB}(@,0.5cm,1cm)[8pt]{|ccc|}{|cccccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
+		\begin{TAB}(@,0.5cm,1cm)[8pt]{|ccc|}{|ccccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
 			Qualitative predictors & $y_{i} =\begin{cases}
 			\beta_{0}+\beta_{1}+\epsilon_{i} &\text{if ith person is x}\\
 			\beta_{0}+\beta_{2}+\epsilon_{i} &\text{if ith person is y}\\
@@ -52,7 +52,16 @@
 			Non-linear & $Y = \beta_{0}+\beta_{1}x+\beta_{2}x^2+\epsilon$& \\
 			Outliers & $\frac{\hat{\epsilon}_{i}}{\sigma\sqrt{1-h_{i}}} $&$>3=\text{outlier}$\\
 			High leverage points &$h_{i} = \frac{1}{n}+\frac{(x_{i}-\overline{x})^2}{\sum_{i'=1}^{n}(x_{i'}-\overline{x})^2} $&$>\frac{p+1}{n}=\text{hl point}$\\
-			Collinearity & $VIF(\hat{\beta}_{j})=\frac{1}{1-R^2_{X_{j}|X_{-j}}}$&$>5-10=\text{problem}$\\
+		\end{TAB}
+	\end{center}
+
+	\begin{center}
+		\begin{TAB}(@,0.5cm,1cm)[8pt]{|ccc|}{|ccccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
+			Collinearity & $VIF(\hat{\beta}_{j}) = \frac{1}{1 - R^2_{X_{j}|X_{-j}}}$&$>5=\text{problem}$\\
+			&$R^2_{X_{j}|X_{-j}} = 1 - \frac{RSS_{X_{j}|X_{-j}}}{TSS_{X_j}}$&\\
+			&$TSS_{X_j} = \sum_{i}(X_{ji} - \bar{X}_j)^2$&\\
+			&$RSS_{X_{j}|X_{-j}} = \sum_{i}(X_{ji} - \hat{X}_{ji})^2$&\\
+			&$\hat{X}_{ji} = \hat{\beta}_{0} + \sum_{k=1,k\ne j}^p{(\hat{\beta}_{k}X_{ki})}$&\\
 		\end{TAB}
 	\end{center}
 	\sectionbreak

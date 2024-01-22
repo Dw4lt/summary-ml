@@ -322,9 +322,16 @@
 	This reduces the accuracy of the estimation of the slopes. Hence the standard errors grow which in turn results in smaller t-statistics which in turn results in larger p-values.\\
 	I there is a collinearity between only two predictor variables, then simply inspecting the (normalized) correlation matrix will show a high correlation between them, if there is a collinearity between more than two variables, a more sophisticated approach needs to be used called the variance inflation factor VIF.
 	\begin{equation}
-		VIF(\hat{\beta}_{j})=\frac{1}{1-R^2_{X_{j}|X_{-j}}}
+	\begin{split}
+		&VIF(\hat{\beta}_{j}) = \frac{1}{1 - R^2_{X_{j}|X_{-j}}}\\
+		&R^2_{X_{j}|X_{-j}} = 1 - \frac{RSS_{X_{j}|X_{-j}}}{TSS_{X_j}}\\
+		&TSS_{X_j} = \sum_{i}(X_{ji} - \bar{X}_j)^2\\
+		&RSS_{X_{j}|X_{-j}} = \sum_{i}(X_{ji} - \hat{X}_{ji})^2\\
+		&\hat{X}_{ji} = \hat{\beta}_{0} + \sum_{k=1,k\ne j}^p{(\hat{\beta}_{k}X_{ki})}\\
+	\end{split}
 	\end{equation}
-	The minimum of VIF is 1, which indicates a complete lack of collinearity. As a rule of thumb, values above 5 to 10 indicate a problem with collinearity.\\
+	Here, \( R^2_{X_{j}|X_{-j}} \) is the coefficient of determination from the regression of \( X_j \) (the predictor of interest) on all other predictors (\(X_{-j}\)). This value reflects how well \( X_j \) can be predicted by the other variables in the model. The lower the \( R^2 \), the lower the multicollinearity and thus the lower the VIF, indicating a more stable and reliable estimate for \(\hat{\beta}_{j}\). ($VIF=1\implies$ no collinearity, $VIF>5\implies$ collinearity problem, $VIF\approx\infty \implies$ perfect collinearity)
+
 	Once the variables with collinearity are detected, there are two obvious solutions:
 	\begin{itemize}
 		\item Drop one of the problematic variables
