@@ -37,7 +37,7 @@
 			& $\hat{\beta}_{0}\pm 2*SE(\hat{\beta}_{0})$&\\
 			t-statistic& $t = \frac{\hat{\beta}_{1}-0}{SE(\hat{\beta}_{1})}$ &reject \(H_{0}\) t\(>\)2(5\%) t\(>\)2.75(1\%)\\
 			Accuracy&$TSS = \sum(y_{i}-\overline{y})^2$&\\
-			& $R^2 = \frac{TSS - RSS}{TSS} = 1-\frac{RSS}{TSS}$& $0\leq R^2\leq 1, \approx$ 1, much explained\\
+			& $R^2 = \frac{TSS - RSS}{TSS} = 1-\frac{RSS}{TSS} = Cor\left(Y, \hat{Y}\right)^2$& $0\leq R^2\leq 1,$ 1=perfect\\
 			& $Cor(X,Y)=\frac{\sum_{i=1}^{n}(x_{i}-\overline{x})(y_{i}-\overline{y})}{\sqrt{\sum_{i=1}^{n}(x_{i}-\overline{x})^2}\sqrt{\sum_{i=1}^{n}(y_{i}-\overline{y})^2}}$ &\\
 		\end{TAB}
 	\end{center}
@@ -99,7 +99,7 @@
 		\begin{TAB}(@,0.5cm,1cm)[8pt]{|cc|}{|ccccc|}% (rows,min,max)[tabcolsep]{columns}{rows}
 			Form & $\hat{\delta}_{k}(x)=x*\frac{\hat{\mu}_{k}}{\hat{\sigma}^2}-\frac{\hat{\mu}_{k}^2}{2\hat{\sigma}^2}+log(\hat{\pi}_{k})$ \\
 			$\mu$ & $\hat{\mu_{k}}=\frac{1}{n_{k}}\sum_{i:y_{i}=k}x_{i}$ \\
-			$\sigma$ & $\hat{\sigma^2}=\frac{1}{n-K}\sum_{k=1}^{K}\sum_{i:y_{i}=k}(x_{i}-\hat{\mu_{k}})^2$\\
+			$\sigma$ & $\hat{\sigma}^2=\frac{1}{n-K}\sum_{k=1}^{K}\sum_{i:y_{i}=k}(x_{i}-\hat{\mu_{k}})^2$\\
 			frequency & $\hat{\pi_{k}}=n_{k}/n$\\
 			multiple predictors & $\delta_{k}(x)=x^T\Sigma^{-1}\mu_{k}-\frac{1}{2}\mu_{k}^T\Sigma^{-1}\mu_{k}+log\pi_{k}$\\
 		\end{TAB}

@@ -21,11 +21,11 @@
 	Besides subset selection methods, there are two popular alternative approaches to reduce the variance in the coefficient estimates.
 
 	\paragraph{Ridge regression}
-	In ridge regression, the idea is that coefficients that are closer to zero are more desirable. The original optimization problem finds the coefficients such that the RSS is minimized. Now the problem is modified so that it becomes a trade-off between minimizing the RSS and minimizing the weighted sum of the squared coefficients.
+	In ridge regression, the idea is that coefficients that are closer to zero are more desirable. The original optimization problem finds the coefficients such that the RSS is minimized. Now the problem (cost function $J(\beta)$) is modified so that it becomes a trade-off between minimizing the RSS and minimizing the weighted sum of the squared coefficients.
 	\begin{equation}
 	\begin{split}
 		RSS &= \sum_{i=1}^{n}(y_{i}-\beta_{0}-\sum_{j=1}^{p}\beta_{j}x_{ij})^2\\
-		RSS+\lambda\sum_{j=1}^{p}\beta_{j}^2 &= \sum_{i=1}^{n}(y_{i}-\beta_{0}-\sum_{j=1}^{p}\beta_{j}x_{ij})^2+\lambda\sum_{j=1}^{p}\beta_{j}^2
+		J(\beta) = RSS+\lambda\sum_{j=1}^{p}\beta_{j}^2 &= \sum_{i=1}^{n}(y_{i}-\beta_{0}-\sum_{j=1}^{p}\beta_{j}x_{ij})^2+\lambda\sum_{j=1}^{p}\beta_{j}^2
 	\end{split}
 	\end{equation}
 	The tradeoff factor is called \(\lambda\) and needs to be found separately using cross-validation. In ridge regression, it is important that the predictor variables are standardized.
@@ -39,7 +39,7 @@
 	Ridge regression does not remove predictors from the model. The lasso approach overcomes this limitation.
 	\begin{equation}
 	\begin{split}
-		RSS+\lambda\sum_{j=1}^{p}|\beta_{j}| &= \sum_{i=1}^{n}(y_{i}-\beta_{0}-\sum_{j=1}^{p}\beta_{j}x_{ij})^2+\lambda\sum_{j=1}^{p}|\beta_{j}|\\
+		J(\beta) = RSS+\lambda\sum_{j=1}^{p}|\beta_{j}| &= \sum_{i=1}^{n}(y_{i}-\beta_{0}-\sum_{j=1}^{p}\beta_{j}x_{ij})^2+\lambda\sum_{j=1}^{p}|\beta_{j}|\\
 		\|\beta\|_{1}&=\sum|\beta_{j}|
 	\end{split}
 	\end{equation}

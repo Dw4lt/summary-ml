@@ -31,7 +31,7 @@
 	The Z-statistic play the role of the t-statistic.
 	\begin{equation}
 	\begin{split}
-		\frac{\hat{\beta_{1}}}{SE(\hat{\beta_{1}})}\\
+		\frac{\hat{\beta}_{1}}{SE(\hat{\beta}_{1})}\\
 		H_{0}:\beta_{1}=0
 	\end{split}
 	\end{equation}
@@ -100,13 +100,13 @@
 	For an observation x, where the left hand side is equal to the right hand side, no class decision can be made, and that is on the decision boundary. Until now we knew the right form of the distribution and everything. Normally we have to estimate such things.
 	\begin{equation}
 	\begin{split}
-		\hat{\mu_{k}}&=\frac{1}{n_{k}}\sum_{i:y_{i}=k}x_{i}\\
-		\hat{\sigma^2}&=\frac{1}{n-K}\sum_{k=1}^{K}\sum_{i:y_{i}=k}(x_{i}-\hat{\mu_{k}})^2
+		\hat{\mu}_{k}&=\frac{1}{n_{k}}\sum_{i:y_{i}=k}x_{i}\\
+		\hat{\sigma}^2&=\frac{1}{n-K}\sum_{k=1}^{K}\sum_{i:y_{i}=k}(x_{i}-\hat{\mu}_{k})^2
 	\end{split}
 	\end{equation}
 	We assume the PDFs to be Gaussian and the estimates above for the means and the common variance. The prior probabilities are estimated using the relative frequency of a particular class in the training set.
 	\begin{equation}
-		\hat{\pi_{k}}=n_{k}/n
+		\hat{\pi}_{k}=n_{k}/n
 	\end{equation}
 	Hence the resulting LDA classifier picks for a measured observation x, the class k which results in the highest discriminant function.
 	\begin{equation}

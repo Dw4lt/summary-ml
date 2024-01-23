@@ -6,12 +6,18 @@
 	\subsection{Polynomial regression}
 	Linear models used so far are easy to interpret and if the true relationship is not approximately linear, limited in predictive power. So we increase the predictive power but want to maintaining as much interpretability as possible if we relax the linearity assumption.
 
-	\paragraph{Straightforward extension to linear regression}
+	\paragraph{Extension to linear regression}
 	We admit different powers of the original predictor variables as new predictor variables and then perform linear regression.
 	\begin{equation}
-		y_{i}=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x_{i}^2+\beta_{3}x_{i}^3+...+\beta_{d}x_{i}^d+\epsilon_{i}
+	\begin{split}
+		\text{let} \quad X_{k} &= X^{k}_1 \quad \text{for} \quad k>0\\
+		Y &= \beta_{0} + \beta_{1}X_{1} + \beta_{2}X_{2} + \dots + \beta_{d}X_{d}\\
+		&\Leftrightarrow  \\
+		y_{i} &= \beta_{0}+\beta_{1}x_{i}+\beta_{2}x_{i}^2 + \dots + \beta_{d}x_{i}^d+\epsilon_{i} \\
+	\end{split}
 	\end{equation}
-	We can also use the same model as we used for linear regression for classification problems.
+	By treating $X_1^k$ as a new predictor $X_k$, the model remains linear, allowing us to use it in regular linear regression.
+	This also extends to classification problems:
 	\begin{equation}
 		Pr(y_{i}>250|x_{i})=\frac{exp(\beta_{0}+\beta_{1}x_{i}+\beta_{2}x_{i}^2+...+\beta_{d}x_{i}^d)}{1+exp(\beta_{0}+\beta_{1}x_{i}+\beta_{2}x_{i}^2+...+\beta_{d}x_{i}^d)}
 	\end{equation}
