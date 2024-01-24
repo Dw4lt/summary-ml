@@ -17,6 +17,7 @@
 	\paragraph{Backward stepwise selection}
 	As the name implies, backward stepwise selection starts with a full model of p predictors. In each step k models containing all previous predictors but one are fitted. The best of these models is kept and again at the end the best out of the p+1 model is selected using cross-validation prediction error. The computational complexity is identical to forward stepwise selection and also we might miss the best model but unlike forward stepwise selection, we require that a full model can be fit. Hence \(p<n\).
 
+	\sectionbreak
 	\subsection{Shrinkage methods}
 	Besides subset selection methods, there are two popular alternative approaches to reduce the variance in the coefficient estimates.
 
@@ -36,7 +37,7 @@
 	As \(\lambda\) increases the flexibility decreases and this results in higher bias but lower variance. We know there is an optimal \(\lambda\), where the sum of the variance and the \(bias^2\) is minimal. This value will be found using cross-validation. The calculation of the ridge regression is efficient and is almost as fast as the least squares method.
 
 	\paragraph{The lasso}
-	Ridge regression does not remove predictors from the model. The lasso approach overcomes this limitation.
+	Ridge regression does not remove predictors from the model, it only shrinks them. The lasso approach overcomes this limitation.
 	\begin{equation}
 	\begin{split}
 		J(\beta) = RSS+\lambda\sum_{j=1}^{p}|\beta_{j}| &= \sum_{i=1}^{n}(y_{i}-\beta_{0}-\sum_{j=1}^{p}\beta_{j}x_{ij})^2+\lambda\sum_{j=1}^{p}|\beta_{j}|\\
@@ -61,6 +62,7 @@
 	\paragraph{Selecting the tuning parameter}
 	Setting \(\lambda\) selects the resulting model. Hence we use the same approach as in the subsection selection schemes, we use cross-validation to find the best \(\lambda\). The main difference is, that \(\lambda\) is a real number \(\lambda \geq0\) and hence there are infinitely many models. Hence the pragmatic approach is to choose a grid of \(\lambda\) values and compute the cross-validation error.
 
+	\sectionbreak
 	\subsection{Dimension reduction methods}
 	So far variance reduction was based on subset selection or on shrinking the coefficients. Another class of variance reduction schemes first transforms the original predictors. Let \(Z_{1},Z_{2},...,Z_{m}\) represents \(M<p\) linear combinations of the original predictors.
 	\begin{equation}

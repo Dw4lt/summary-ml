@@ -68,43 +68,47 @@
 	\subsection{Support vector machines}
 
 	\paragraph{Classification with non-linear (quadratic) decision boundaries}
-	When the datapoints aren't linear separable, a non-linear approach is used. In the past we have extended linear approaches by using higher order terms as additional predictors. So instead of using the original p predictors we could also use 2p predictors with the power of two of the original predictors.
+	When the datapoints aren't linearly separable, a non-linear approach is used. In the past we have extended linear approaches by using higher order terms as additional predictors. So instead of using the original $p$ predictors we could also use $2p$ predictors with the power of two of the original predictors.
 	\begin{equation}
 	\begin{split}
 		&\text{maximize M}\\
-		&\text{subject to} y_{i}(\beta_{0}+\sum_{j=1}^{p}\beta_{j1}x_{ij}+\sum_{j=1}^{p}\beta_{j2}x_{ij}^2)\ge M(1-\epsilon_{i})\\
+		&\text{subject to } y_{i}(\beta_{0}+\sum_{j=1}^{p}\beta_{j1}x_{ij}+\sum_{j=1}^{p}\beta_{j2}x_{ij}^2)\ge M(1-\epsilon_{i})\\
 		&\sum_{i=1}^{n}\epsilon_{i}\le C, \epsilon_{i}\ge 0, \sum_{j=1}^{p}\sum_{k=1}^{2}\beta_{jk}^2=1
 	\end{split}
 	\end{equation}
-	This will result in a linear decision boundary in the new feature space, which is a non-linear decision boundary in the original feature space. So why only use quadratic terms, higher order terms could be used to.
+	This will result in a linear decision boundary in the new feature space, which is a non-linear decision boundary in the original feature space. This trick can be applied endlessly however ($X^3, X^4, ...$), so a smart selection of features is required to avoid an explosion in computation.
 
 	\paragraph{Support vector machine (SVM)}
-	The SVM is an extension of the support vector classifier that results from enlarging the feature space using kernels. Kernels are a computationally efficient approach for enlarging the feature space. So far the algorithm of how the optimization problem is solved has not been discussed. As it turns out, the solution does not need the observations directly but only inner products.
+	The SVM is an extension of the support vector classifier that results from enlarging the feature space using kernels. Kernels are a computationally efficient approach for enlarging the feature space. So far the algorithm of how the optimization problem is solved has not been discussed. As it turns out, the solution does not need the observations directly but only inner products between all pairs of training observations $\left(\begin{matrix}n\\2\end{matrix}\right)$, resulting in $n(n-1)/2$ pairs.
 	\begin{equation}
 	\begin{split}
-		(x_{i},x_{i'})&=\sum_{j=1}^{p}x_{ij}x_{i'j}\\
-		f(x)=\beta_{0}&+\sum_{i=1}^{n}\alpha_{i}(x,x_{i})
+		\langle x_{i},x_{i'}\rangle&=\sum_{j=1}^{p}x_{ij}x_{i'j}\\
+		f(x)=\beta_{0}&+\sum_{i=1}^{n}\alpha_{i} \langle x,x_{i}\rangle\\
+		\alpha_i: \text{ weight of }&x_i\text{ as a support vector}\\
 	\end{split}
 	\end{equation}
-	AS it turns out, the $\alpha_{i}$, are only non-zero for the support vectors. Hence if S is the collection of indices of these support vectors then the equation can be simplified.
-	\begin{equation}
-		f(x)=\beta_{0}+\sum_{i\in S}\alpha_{i}(x,x_{i})
-	\end{equation}
-	Note that calculation f(x) only requires inner products. Also calculating the required $\alpha_{i}$ only requires inner products. Hence if the extension to a non-linear decision boundary generalizes the inner product calculation, than the original algorithm for solving the linear support vector classifier optimization problem can still be used. This is called the kernel trick. The generalization of the inner product using a so called \textbf{kernel}.
+	$\alpha_{i}$ is only non-zero for the support vectors, hence the formula can be simplified by defining $S$:
 	\begin{equation}
 	\begin{split}
-		&K(x_{i},x_{i'})\\
-		&K(x_{i},x_{i'})=\sum_{j=1}^{p}x_{ij}x_{i'j}\\
-		&K(x_{i},x_{i'})=(1+\sum_{j=1}^{p}x_{ij}x_{i'j})^d
+		S: \text{ support vector indices}\\
+		f(x)=\beta_{0}+\sum_{i\in S}\alpha_{i}\langle x,x_{i}\rangle
 	\end{split}
 	\end{equation}
-	The last kernel is known as the polynomial kernel of degree d. If this kernel is used ($d>1$) in finding the $\alpha$ and in the evaluation of the classifier function, then effectively a support vector classifier with a much more flexible (non-linear) decision boundary results. When a support vector classifier is combined with a non-linear kernel, the resulting classifier is known as a support vector machine.
+	Both $f(x)$ and $\alpha_i$ only require inner products. Hence if the extension to a non-linear decision boundary generalizes the inner product calculation, then the original algorithm for solving the linear support vector classifier optimization problem can still be used. This is called the \textbf{kernel trick}. The generalization of the inner product using a so called \textbf{kernel}.
+	\begin{equation}
+	\begin{split}
+		&K(x_{i},x_{i'})=\sum_{j=1}^{p}x_{ij}x_{i'j} \qquad \textbf{linear kernel}\\
+		&K(x_{i},x_{i'})=\left(1+\sum_{j=1}^{p}x_{ij}x_{i'j}\right)^d \qquad \textbf{kernel of degree }d
+	\end{split}
+	\end{equation}
+	If $d>1$ is used in finding $\alpha$ and in the evaluation of the classifier function, then the support vector classifier gains in flexibility via a non-linear decision boundary, making it a \textbf{Support vector machine} with the following function:
 	\begin{equation}
 		f(x)=\beta_{0}+\sum_{i\in S}\alpha_{i}K(x,x_{i})
 	\end{equation}
-	An advantage in using the kernel trick instead of explicitly enlarging the feature space is computational, since for finding the $\alpha$ one only needs to calculated the kernel function and does not need to operate in the enlarged feature space.
 
-	\subsection{SVMs with more than one class}
+	\paragraph{The advantage of the kernel trick} over explicitly enlarging the feature space is computation, since $\alpha$ can be calculated using only the kernel function and does not need to operate in the enlarged feature space.
+
+	\subsection{SVMs with more than 2 classes}
 	So far all scheme discussed in this chapter were binary classification schemes. We need an extension to the basic approach. Unfortunately, the concept of a separating hyperplane has no natural extension to the case of more than two classes. There are several extensions to the K-class problem and all of them break the K-class problem into a series of binary problems, for which an SVM is well suited. The most popular approaches are one-versus-one and one-versus-all.
 
 	\paragraph{One-versus-one}

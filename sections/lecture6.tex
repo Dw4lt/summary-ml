@@ -115,6 +115,7 @@
 	\paragraph{Comparison to polynomial regression}
 	Regression splines are usually superior to polynomial regression. Regression splines can increase flexibility by adding knots, while polynomial regression needs to add powers of the predictor variable.
 
+	\sectionbreak
 	\subsection{Smoothing splines}
 	A smoothing spline $g(X)$ is a natural (linear at both ends) cubic spline with knots at every unique value of $x_{i}$ ($K=n$). This results in a spline with far too many degrees of freedom. As a counter-measure, we add a roughness cost the cost function $J(\beta)$. This penalizes roughness and limits the degrees of freedom. This also removes the need to manually pick sensible knots.
 	\begin{equation}

@@ -317,6 +317,8 @@
 		h_{i} = \frac{1}{n}+\frac{(x_{i}-\overline{x})^2}{\sum_{i'=1}^{n}(x_{i'}-\overline{x})^2}
 	\end{equation}
 	In order to quantify an observation's leverage, the leverage statistic can be computed as shown above for simple linear regression, which takes on values between 1/n and 1. The average leverage for all observations has a leverage greatly exceeding (p+1)/n, then we can assume that that point is a high leverage point.
+
+	\sectionbreak
 	\subparagraph{Collinearity}
 	Two or more predictors are highly correlated, hence it is not clear how to distribute the slope to the two or more predictors. \\
 	This reduces the accuracy of the estimation of the slopes. Hence the standard errors grow which in turn results in smaller t-statistics which in turn results in larger p-values.\\
@@ -338,6 +340,7 @@
 		\item Combining collinear predictor variables into a new variable
 	\end{itemize}
 
+	\sectionbreak
 	\subsection{Comparison of linear regression with KNN}
 	Linear regression is a parametric approach. If the linearity assumption holds, this will result in good results which are easy to interpret. If the assumption does not hold, this will result in a low performing scheme.\\
 	The KNN regression is a non-parametric approach and hence there are no assumptions that can be violated. But the results are often hard to interpret and it usually takes much more training data to achieve similar performance. The KNN regression is very similar to KNN classification but the main difference is, that there is no voting among the K nearest neighbors in the set \(N_{0}\) for the winning class, but an average is performed for the prediction value.

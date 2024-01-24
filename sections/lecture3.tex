@@ -10,6 +10,9 @@
 	\begin{equation}
 		p(X)=\frac{e^{\beta_{0}+\beta_{1}X}}{1+e^{\beta_{0}+\beta_{1}X}}
 	\end{equation}
+	\begin{center}
+		\includegraphics[width=.35\textwidth]{pictures/logistic_regression}
+	\end{center}
 	One problem that is left to solve is, how the coefficient can be found so that this will generate a meaningful curve. This will be based on a scheme called maximum likelihood.\\
 	With some manipulation the following equation results, where the term on the left hand side is called the odds.
 	\begin{equation}
@@ -53,6 +56,7 @@
 	\paragraph{Logistic regression for more than two response classes}
 	If we had three categories, we would need to estimate the probabilities of each of them, given the observed predictors. While there is a multi-class extension for two-class logistic regression, it is not used very often in practice.
 
+	\sectionbreak
 	\subsection{Linear discriminant analysis}
 
 	\paragraph{Introduction}
@@ -89,6 +93,7 @@
 
 	Estimating \(f_{k}(X)\) requires us to first make an assumption about its form.
 
+	\sectionbreak
 	\paragraph{LDA using one predictor p=1}
 	We will assume the model of the function to be a Gaussian.
 	\begin{equation}
@@ -116,6 +121,7 @@
 	\end{split}
 	\end{equation}
 
+	\sectionbreak
 	\paragraph{LDA using multiple predictors p\(>\)1}
 	Extending LDA to multiple predictors requires a model of a multidimensional PDF. We will select a multidimensional Gaussian PDF where the means of the classes are different but all classes have the same covariance matrix ($\Sigma$).
 	\begin{equation}
