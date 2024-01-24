@@ -22,20 +22,33 @@
 		Pr(y_{i}>250|x_{i})=\frac{exp(\beta_{0}+\beta_{1}x_{i}+\beta_{2}x_{i}^2+...+\beta_{d}x_{i}^d)}{1+exp(\beta_{0}+\beta_{1}x_{i}+\beta_{2}x_{i}^2+...+\beta_{d}x_{i}^d)}
 	\end{equation}
 
+	\textbf{Problem}: $\hat{y}$ is influenced by low and high $x_i$ predictors equally. $Y(x=1000)$ is equally important as $Y(x=0)$ for $\hat{y}(0)$. \\
+	\textbf{Solution}: subdivide X into regions, turning $f^{*}(x)$ into a \textbf{step function}, with different weights per region.
+
 	\subsection{Step functions}
 
-	\paragraph{Allowing for local approximations}
-	Step functions allow for local approximations by braking X into bins and fitting a different constant in each bin.
+	\paragraph{Local approximations}
+	Step functions allow for local approximations by braking X into bins and fitting a different constant in each bin (stepwise uniform pdf $C_k$).
+	\begin{center}
+		\includegraphics[width=.5\textwidth]{pictures/stepwise_function}
+	\end{center}
 	\begin{equation}
 	\begin{split}
-		y_{i}=\beta_{0}+\beta_{1}C_{1}(x_{i})+\beta_{2}C_{2}(x_{i})+...+\beta_{K}C_{K}(x_{i})+\epsilon_{i}\\
-		C_{0}(X)+C_{1}(X)+...+C_{K}(X)=1
+		&\hat{y}_{i}=\hat{\beta}_{0}+\hat{\beta}_{1}C_{1}(x_{i})+\hat{\beta}_{2}C_{2}(x_{i})+\dots+\hat{\beta}_{K}C_{K}(x_{i})+\epsilon_{i}\\
+		&C_k(X) = \begin{cases}
+			1 & \text{if } c_{k}<X < c_{k+1}\\
+			0 & \text{otherwise} \\
+		\end{cases} \\
+		&C_{0}(X)+C_{1}(X)+\dots+C_{K}(X)=1 \qquad \text{(due to complementary ranges)}\\
+		&\hat{\beta}_{k} = \text{ avg} (y) \text{ with } {c_{k}}<x<{c_{k+1}}
 	\end{split}
 	\end{equation}
-	It's basically again a linear functions. So we can also use this approach to classification problems.
+	This function remains linear and can be used for classification problems:
 	\begin{equation}
-		Pr(y_{i}>250|x_{i})=\frac{exp(\beta_{0}+\beta_{1}C_{1}(x_{i})+\beta_{2}C_{2}(x_{i})+...+\beta_{K}C_{K}(x_{i}))}{1+exp(\beta_{0}+\beta_{1}C_{1}(x_{i})+\beta_{2}C_{2}(x_{i})+...+\beta_{K}C_{K}(x_{i}))}
+		Pr(y_{i}>250|x_{i})=\frac{exp(\beta_{0}+\beta_{1}C_{1}(x_{i})+\dots+\beta_{K}C_{K}(x_{i}))}{1+exp(\beta_{0}+\beta_{1}C_{1}(x_{i})+\dots+\beta_{K}C_{K}(x_{i}))}
 	\end{equation}
+	\textbf{Problem}: piecewise constant is a crude approximation.
+	\textbf{Solution}:
 
 	\subsection{Basis functions}
 
@@ -68,63 +81,64 @@
 	For example if there is a knot at c we have a cubic polynomial on the left and another one the right of c. Using more knots leads to more flexible fits.
 
 	\paragraph{Constraints and splines}
-	We would like the overall function to be continuos. Hence we add the constraint, that at a knot both polynomials must have the same values. We also want the first and the second derivatives to be continuous. This will result in a very smooth transition from one polynomial to the next. Hence two more constraints need to be added per knot. Each constraint removes a degree of freedom.
+	We would like the overall function to be continuos, with smooth transitions between polynomial functions. Hence we add the constraint, that at a knot both polynomials must have the same value (no jumps, can be done by tweaking offset $\beta_0$), the same slope (same 1. order derivatives) and the same rate of change (same 2. order derivative). These 3 constraints reduce the degrees of freedom by 1 each, leading to \textbf{+1 degree of freedom per knot}.
 
 	\paragraph{The spline basis representation}
 	How can we fit cubic splines to the data? The most elegant approach is based on the spline basis representation.
 	\begin{equation}
 		y_{i}=\beta_{0}+\beta_{1}b_{1}(x_{i})+\beta_{2}b_{2}(x_{i})+...+\beta_{K+3}b_{K+3}(x_{i})+\epsilon_{i}
 	\end{equation}
-	We use the truncated power basis function, where \(\xi\) is the knot.
+	We use a truncated power function $h(x, \xi_k)$ as the basis function (previously $b_k$) for each knot, where $\xi_k$ is a knot.
 	\begin{equation}
-		h(x,\xi)=(x-\xi)_{+}^3=
+		h(x,\xi_k)=(x-\xi_k)_{+}^3=
 		\begin{cases}
-			(x-\xi)^3 \text{  if  } x > \xi\\
+			(x-\xi_k)^3 \text{  if  } x > \xi_k\\
 			0 \text{  otherwise  }
 		\end{cases}
 	\end{equation}
-	One can show, that the following expression will have a discontinuity in only the third derivative at \(\xi\). In other words, the function will stay continuous and have continuous first and second derivatives.
+	One can show, that the following expression will have a discontinuity in only the third derivative at \(\xi_k\). In other words, the function will stay continuous and have continuous first and second derivatives.
 	\begin{equation}
-		y_{i}=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x_{i}^2+\beta_{3}x_{i}^3+\beta_{4}h(x,\xi)+\epsilon_{i}
+		y_{i}=\beta_{0}+\beta_{1}x_{i}+\beta_{2}x_{i}^2+\beta_{3}x_{i}^3 + \sum_{k=1}^{K}{\beta_{(k+3)}h(x_i,\xi_k)}+\epsilon_{i}
 	\end{equation}
 	Hence in order to fit a cubic spline to a data set using K knots we perform least squares regression with an intercept and 3+K predictors of the following form.
 	\begin{equation}
 		X, X^2, X^3, h(X,\xi_{1}),h(X,\xi_{2}),...,h(X,\xi_{K})
 	\end{equation}
-	Unfortunately splines can have high variance at the outer range of the predictors and a natural spline is a regression spline with additional boundary constraints.
 
-	\paragraph{Choosing the number and locations of the knots}
-	Clearly more knots increase the flexibility. Also one might want to place the knots such that many knots are where much flexibility is necessary and few knots are where less flexibility is required. In practice this is hard to know a priori and hence the knots are uniformly spaced (\(25^th,50^th and 75^th percentiles\))\\
-	We use cross-validation to determine the optimal number of knots.
+	\paragraph{Natural spline}
+	As $x$ grows past the last knot (and prior to the first knot), the variance can grow rapidly. This can be improved by limiting the function to be linear for values $x<\xi_1$ and $\xi_k<x$. Doing so removes an additional 2 degrees of freedom at each end of the graph (2. \& 3. derivative = 0, -4 DoF total).
+
+	\paragraph{Choosing the number ($K$) and locations of the knots ($\xi$)}
+	The density of knots should reflect the amount of data so as to allow for enough flexibility where needed, without overfitting on sparse regions. For this, percentile markers can be used.\\
+	For example using $K=3$ knots, we may place them at the $25^{th}$, $50^{th}$ and $75^{th}$ percentile. $K$ can be determined via cross validation.
 
 	\paragraph{Comparison to polynomial regression}
 	Regression splines are usually superior to polynomial regression. Regression splines can increase flexibility by adding knots, while polynomial regression needs to add powers of the predictor variable.
 
 	\subsection{Smoothing splines}
-
-	\paragraph{An overview of smoothing splines}
-	The problem of fitting a function to the data can be solved by minimizing the RSS. On way of measuring toughness is by integrating the square of the second derivative.
+	A smoothing spline $g(X)$ is a natural (linear at both ends) cubic spline with knots at every unique value of $x_{i}$ ($K=n$). This results in a spline with far too many degrees of freedom. As a counter-measure, we add a roughness cost the cost function $J(\beta)$. This penalizes roughness and limits the degrees of freedom. This also removes the need to manually pick sensible knots.
 	\begin{equation}
 	\begin{split}
-		RSS=\sum_{i=1}^{n}(y_{i}-g(x_{i}))^2\\
-		\int g''(t)^2dt
+		&y_{i}=\begin{cases}
+			\beta_{01}+\beta_{11}x_{i}+\beta_{21}x_{i}^2+\beta_{31}x_{i}^3+\epsilon_{i} \text{  if  } x_{i} < c\\
+			\beta_{02}+\beta_{12}x_{i}+\beta_{22}x_{i}^2+\beta_{32}x_{i}^3+\epsilon_{i} \text{  if  } x_{i} \geq c
+		\end{cases}\\
+		&RSS=\sum_{i=1}^{n}(y_{i}-g(x_{i}))^2\\
+		&\text{Roughness} = \int g''(t)^2dt \qquad \begin{cases}
+			=0 & \text{linear}\\
+			\approx \infty & \text{very jagged}\\
+		\end{cases}\\
+		&J(\beta)=\sum_{i=1}^{n}(y_{i}-g(x_{i}))^2+\lambda\int g''(t)^2dt\\
+		&LOOCV_{(n)}=\frac{1}{n}\sum_{i=1}^{n}(\frac{y_{i}-\hat{y}_{i}}{1-h_{i}})^2\\
 	\end{split}
-	\end{equation}
-	Hence we want to fit a function to the data that minimizes the RSS and the weighted roughness measure.
-	\begin{equation}
-		\sum_{i=1}^{n}(y_{i}-g(x_{i}))^2+\lambda\int g''(t)^2dt
-	\end{equation}
-	Again there is a trade-off factor \(\lambda\) involved which is nonnegative and is a tuning parameter.
-
-	\paragraph{Choosing the smoothing parameter \(\lambda\)}
-	A smoothing spline is a natural cubic spline with knots at every unique value of \(x_{i}\). This implies that this spline has far too many degrees of freedom. This is where the smoothing parameter comes into play, since it controls the roughness of the smoothing spline it controls the effective degrees of freedom. The effective degrees of freedom measure the flexibility of the spline, the higher it is, the more flexible the spline is. Hence we do not need to pick the locations of the knots as before, but now we have to select the best smoothing parameter. As always in such situation, we use cross-validation to find the \(\lambda\) which results in the smallest cross-validated RSS.
-	\begin{equation}
-		CV_{(n)}=\frac{1}{n}\sum_{i=1}^{n}(\frac{y_{i}-\hat{y}_{i}}{1-h_{i}})^2
 	\end{equation}
 
 	\subsection{Local regression}
 
 	\paragraph{Using local data for prediction}
+	\begin{center}
+		\includegraphics[width=.5\textwidth]{pictures/local_regression}
+	\end{center}
 	Local regression uses only data close to a target point \(x_{0}\) to fit a flexible non-linear function. Local regression has several parameters:
 	\begin{itemize}
 		\item Weighting function \(K(x_{i},x_{0})\)
@@ -133,6 +147,7 @@
 	\end{itemize}
 	The most important choice is the span s. The smaller the value of s, the more local the fit is and hence the more flexible the function becomes. Again, cross-validation is used for finding the best value for the span s.
 
+	\sectionbreak
 	\subsection{Generalized additive models}
 	All methods of this chapter have been developed for a single predictor. Generalized additive models (GAMs) extends these ideas to multiple predictors.
 
@@ -143,7 +158,7 @@
 	\end{equation}
 	The obvious extension of this formula is by replacing the linear components \(\beta_{j}x_{ij}\) with a smooth non-linear function \(f_{j}(x_{ij})\), resulting in the new model.
 	\begin{equation}
-		y_{i}=\beta_{0}+\sum_{j=1}^{p}f_{j}(x_{ij})+\epsilon_{i} = \beta_{0}+f_{1(}x_{i1})+f_{2}(x_{i2})+...+f_{p}(x_{ip})+\epsilon_{i}
+		y_{i}=\beta_{0}+\sum_{j=1}^{p}f_{j}(x_{ij})+\epsilon_{i} = \beta_{0}+f_{1}(x_{i1})+f_{2}(x_{i2})+...+f_{p}(x_{ip})+\epsilon_{i}
 	\end{equation}
 	This is an example of a GAM. It is called an additive model because we calculate a separate \(f_{j}\) for each \(X_{j}\) and then add together all of their contributions.
 
