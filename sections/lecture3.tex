@@ -63,72 +63,88 @@
 	We also need to know what the PDFs for each the observations are, given a particular class k
 	\begin{equation}
 	\begin{split}
-		\pi_{k}\\
-		f_{k}(X)
+		\pi_{k}&\qquad\text{prior probability of class }k\\
+		f_{k}(X) = p(X|Y=k)&\qquad\text{PDF of }X\text{ for class }k\\
 	\end{split}
 	\end{equation}
+	$\pi_k$ is the overall likelihood of class $k$.
 	This is the likelihood of an observation, given a particular class. \(f_{k}(x)\) is relatively large, if there is a high probability that an observation in the k'th class has a value around a small neighborhood of x.
 	\begin{equation}
 	\begin{split}
-		Pr(Y=k|X=x)&=\frac{\pi_{k}f_{k}(x)}{\sum_{l=1}^{K}\pi_{l}f_{l}(x)}\\
-		p_{k}(X)=Pr(Y=k|X)&
+		p_{k}(X)&=Pr(Y=k|X=x)\qquad\text{posterior probability of } x \in k\\
+		&=\frac{\pi_{k}f_{k}(x)}{\sum_{i=1}^{K}\pi_{i}f_{i}(x)}\\
 	\end{split}
 	\end{equation}
-	This is de Bayes theorem and we use the shorter abbreviation. We select that class which has the largest posterior probability results in the lowest average number of errors.\\
-	This suggest that instead of modeling \(p_{k}(X)\) directly, one could model/estimate \(f_{k}(X)\) and \(\pi_{k}\) and then use the theorem to find the needed \(p_{k}(X)\)\\
-	Estimating the prior probabilities is simple. We simple use the fraction of samples in the training set that belong to class k as the estimate of the prior probabilities.\\
-	Estimating \(f_{k}(X)\) is more challenging, except we assume some parametric form, as we will do in this chapter.
+	\textbf{Goal:} find the class which results in the largest posterior probability \(p_{k}(X)\), as it provides the smallest error.\\
+	\textbf{Approach:} instead of modeling \(p_{k}(X)\) directly, we estimate $\pi_k$ and model $f_{k}(X)$, then use Bayes to find the posterior probability \(p_{k}(X)\).\\
+
+	If $\hat{\pi}_k$, $\mu_k$ or $\sigma^2$ (assuming all $\sigma_k$ are equal) are unknown they can be estimated as follows:
+	\begin{equation}
+	\begin{split}
+		\hat{\pi}_{k}&=n_{k}/n\\
+		\hat{\mu}_{k}&=\frac{1}{n_{k}}\sum_{i:y_{i}=k}x_{i}\\
+		\hat{\sigma}^2&=\frac{1}{n-K}\sum_{k=1}^{K}\sum_{i:y_{i}=k}(x_{i}-\hat{\mu}_{k})^2
+	\end{split}
+	\end{equation}
+
+	Estimating \(f_{k}(X)\) requires us to first make an assumption about its form.
 
 	\paragraph{LDA using one predictor p=1}
 	We will assume the model of the function to be a Gaussian.
 	\begin{equation}
 		f_{k}(x)=\frac{1}{\sqrt{2\pi}\sigma_{k}}exp(-\frac{1}{2\sigma_{k}^2}(x-\mu_{k})^2)
 	\end{equation}
-	We further assume that all classes have the same variance. Now we can use Bayes to calculate the posterior probability of a class k.
+	We further assume that all classes have the same variance. Now we can use Bayes to calculate the posterior probability $p_{k}(X)$ of a class k.
 	\begin{equation}
 	p_{k}(x)=\frac{\pi_{k}\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{1}{2\sigma^2}(x-\mu_{k})^2)}{\sum_{l=1}^{K}\pi_{l}\frac{1}{\sqrt{2\pi}\sigma}exp(-\frac{1}{2\sigma^2}(x-\mu_{l})^2)}
 	\end{equation}
-	The Bayes classifier assigns now the observation x to the class k with the hightest posterior probability.
+
+	The Bayes classifier assigns now the observation x to the class k with the hightest posterior probability $p_{k}(X)$. With a Gaussian distribution, maximizing $p_{k}(X)$ yields the same result as maximizing $\delta_{k}(x)$. Wherever $\delta_{k}(x)=\delta_{k+1}(x)$, no clear winning class exists, this is therefore the \textbf{decision boundary} between the two classes.
+
+	\begin{equation}
+		\begin{split}
+			&\delta_{k}(x)=x*\frac{\mu_{k}}{\sigma^2}-\frac{\mu_{k}^2}{2\sigma^2}+log(\pi_{k})\\
+		\end{split}
+	\end{equation}
+
+	\textbf{Example} of a Gaussian distribution with $k=2$, $\pi_1=\pi_2$ and $\sigma^2_1=\sigma^2_2$:
 	\begin{equation}
 	\begin{split}
-		&\delta_{k}(x)=x*\frac{\mu_{k}}{\sigma^2}-\frac{\mu_{k}^2}{2\sigma^2}+log(\pi_{k})\\
-		&2x(\mu_{1}-\mu_{2})>\mu_{1}^2-\mu_{2}^2\\
-		&x=\frac{\mu_{1}^2-\mu_{2}^2}{2(\mu_{1}-\mu_{2})}=\frac{\mu_{1}+\mu_{2}}{2}
+		\hat{\delta}_{k}(x)&=x*\frac{\hat{\mu}_{k}}{\hat{\sigma}^2}-\frac{\hat{\mu}_{k}^2}{2\hat{\sigma}^2}+log(\hat{\pi}_{k})\\
+		&2x(\hat{\mu}_{1}-\hat{\mu}_{2})>\hat{\mu}_{1}^2-\hat{\mu}_{2}^2\\
+		&x=\frac{\hat{\mu}_{1}^2-\hat{\mu}_{2}^2}{2(\hat{\mu}_{1}-\hat{\mu}_{2})}=\frac{\hat{\mu}_{1}+\hat{\mu}_{2}}{2} \qquad \text{(=decision boundary)}
 	\end{split}
-	\end{equation}
-	This is equivalent to assigning the observation to the class for which the above expression is the largest.
-	For an observation x, where the left hand side is equal to the right hand side, no class decision can be made, and that is on the decision boundary. Until now we knew the right form of the distribution and everything. Normally we have to estimate such things.
-	\begin{equation}
-	\begin{split}
-		\hat{\mu}_{k}&=\frac{1}{n_{k}}\sum_{i:y_{i}=k}x_{i}\\
-		\hat{\sigma}^2&=\frac{1}{n-K}\sum_{k=1}^{K}\sum_{i:y_{i}=k}(x_{i}-\hat{\mu}_{k})^2
-	\end{split}
-	\end{equation}
-	We assume the PDFs to be Gaussian and the estimates above for the means and the common variance. The prior probabilities are estimated using the relative frequency of a particular class in the training set.
-	\begin{equation}
-		\hat{\pi}_{k}=n_{k}/n
-	\end{equation}
-	Hence the resulting LDA classifier picks for a measured observation x, the class k which results in the highest discriminant function.
-	\begin{equation}
-		\hat{\delta}_{k}(x)=x*\frac{\hat{\mu}_{k}}{\hat{\sigma}^2}-\frac{\hat{\mu}_{k}^2}{2\hat{\sigma}^2}+log(\hat{\pi}_{k})
 	\end{equation}
 
 	\paragraph{LDA using multiple predictors p\(>\)1}
-	Extending LDA to multiple predictors results in the need for a model of a multidimensional PDF. We will select a multidimensional Gaussian PDF where the means of the classes are different but all classes have the same covariance matrix.
+	Extending LDA to multiple predictors requires a model of a multidimensional PDF. We will select a multidimensional Gaussian PDF where the means of the classes are different but all classes have the same covariance matrix ($\Sigma$).
 	\begin{equation}
 	\begin{split}
 		X&=(X_{1},X_{2},...,X_{p})\\
 		X&\sim N(\mu,\Sigma)\\
-		E(X)&=\mu\\
-		Cov(X)&=\Sigma\\
-		f(x)&=\frac{1}{(2\pi)^\frac{p}{2}|\Sigma|^\frac{1}{2}}exp(-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu))
+		\mu&= \left[\begin{matrix}\mu_{1} \\ \vdots \\ \mu_{k} \end{matrix}\right]\\
+		\mu_k &= \left[\begin{matrix}\mu_{k1} \\ \vdots \\ \mu_{kp} \end{matrix}\right] \qquad \text{Average of class per dimension}\\
+		x_i&=\left[\begin{matrix}X_{1i} \\ \vdots \\ X_{pi} \end{matrix}\right]\\
+		\Sigma&=Cov(X)=\left[\begin{matrix}
+				Var(X_1) &\dots& Cov(X_p, X_1)\\
+				\vdots & \ddots & \vdots\\
+				Cov(X_1, X_p) &\dots & Var(X_p)\\
+			\end{matrix}\right]=\left[\begin{matrix}
+				\sigma^2_1 &\dots& \sigma_{p1}\\
+				\vdots & \ddots & \vdots\\
+				\sigma_{1p} &\dots & \sigma^2_p\\
+			\end{matrix}\right]\\
+		f_k(x)&=\frac{exp(-\frac{1}{2}(x-\mu_k)^T\Sigma^{-1}(x-\mu_k))}{(2\pi)^\frac{p}{2}|\Sigma|^\frac{1}{2}}
 	\end{split}
 	\end{equation}
 	X is the vector of observations, \(\mu\) is the mean vector, where each class has its own mean vector \(\mu_{k}\) and \(\Sigma\) is the pxp covariance matrix that is common to all the classes.
 	\begin{equation}
 		\delta_{k}(x)=x^T\Sigma^{-1}\mu_{k}-\frac{1}{2}\mu_{k}^T\Sigma^{-1}\mu_{k}+log\pi_{k}
 	\end{equation}
-	The Bayes classifier now calculated the discriminant function for each class using the given test data x and assigns the test data to the class with the highest discriminant function.\\
+	The Bayes classifier now calculated the discriminant function for each class using the given test data x and assigns the test data to the class with the highest discriminant function $\delta_{k}(x)$.\\
+	\begin{center}
+		\includegraphics[width=.5\textwidth]{pictures/mlda}
+	\end{center}
 	LDA is optimized for minimum overall error, which is composed in a low sensitivity and a high specificity and you have to decide about a good threshold for yourself.
 
 	\subsection{Quadratic discriminant analysis}
